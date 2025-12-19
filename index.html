@@ -154,17 +154,34 @@
       background: rgba(255,255,255,0.1);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 8px;
-      padding: 10px 20px;
-      font-size: 14px;
+      padding: 10px;
+      width: 40px;
+      height: 40px;
       color: #fff;
-      font-family: inherit;
       cursor: pointer;
       transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .newsletter-form button:hover {
       background: rgba(255,255,255,0.15);
       border-color: rgba(255,255,255,0.3);
+    }
+
+    @media (max-width: 600px) {
+      .newsletter-form {
+        width: 100%;
+      }
+      .newsletter-form span {
+        width: 100%;
+        text-align: center;
+      }
+      .newsletter-form input {
+        flex: 1;
+        min-width: 0;
+      }
     }
 
     /* Hero section */
@@ -442,7 +459,7 @@
       <form class="newsletter-form" id="newsletter-form">
         <span>stay updated with my journey</span>
         <input type="email" name="email" placeholder="enter your email" required>
-        <button type="submit">subscribe</button>
+        <button type="submit" aria-label="Subscribe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
       </form>
       <p id="newsletter-message" class="form-message"></p>
     </header>
