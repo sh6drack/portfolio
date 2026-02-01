@@ -272,13 +272,13 @@
 
   <style>
     @keyframes spin {
-      from { transform: translate(250px, 250px) rotate(0deg); }
-      to { transform: translate(250px, 250px) rotate(360deg); }
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
-    .disc { animation: spin 4s linear infinite; transform-origin: 250px 250px; }
+    .disc { animation: spin 4s linear infinite; transform-origin: center; }
   </style>
 
-  <g class="disc">
+  <g class="disc" transform="translate(250, 250)">
     
     <!-- Disc base with holographic surface -->
     <circle cx="0" cy="0" r="175" fill="url(#holoBase)"/>
