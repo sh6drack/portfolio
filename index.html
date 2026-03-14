@@ -85,6 +85,9 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /* WebGL canvas background */
@@ -115,6 +118,7 @@
     .container {
       position: relative;
       z-index: 1;
+      width: 100%;
       max-width: 1100px;
       margin: 0 auto;
       padding: clamp(32px, 6vw, 80px) clamp(20px, 5vw, 60px);
@@ -238,6 +242,16 @@
       }
     }
 
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes scanline {
+      0% { top: 0; }
+      100% { top: 100%; }
+    }
+
     /* Section labels */
     .section-label {
       font-size: 10px;
@@ -298,6 +312,19 @@
     .project-card:nth-child(6) { animation-delay: 0.3s; }
     .project-card:nth-child(7) { animation-delay: 0.35s; }
     .project-card:nth-child(8) { animation-delay: 0.4s; }
+    .project-card:nth-child(9) { animation-delay: 0.45s; }
+
+    .project-card:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: 50%;
+      justify-self: center;
+    }
+
+    @media (max-width: 768px) {
+      .project-card:last-child:nth-child(odd) {
+        max-width: 100%;
+      }
+    }
 
     .project-card:hover {
       background: #0e0e0e;
@@ -600,7 +627,7 @@
     <section class="projects-section">
       <div class="section-label">
         <span>SELECTED WORK</span>
-        <span class="count">8 PROJECTS</span>
+        <span class="count">9 PROJECTS</span>
       </div>
       <div class="projects-grid">
         <!-- Polarity -->
@@ -644,10 +671,31 @@
           </div>
         </a>
 
+        <!-- Pulse -->
+        <a href="https://onpulse.tv" target="_blank" class="project-card">
+          <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+            <!-- Waveform mark -->
+            <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+              <img src="pulse-mark.svg" alt="Pulse" style="width: 140px; height: auto;">
+              <img src="pulse-wordmark.svg" alt="PULSE" style="width: 160px; height: auto;">
+            </div>
+            <!-- Subtle scan line -->
+            <div style="position: absolute; top: 0; left: 0; right: 0; height: 1px; background: #FF6B00; opacity: 0.15; animation: scanline 4s linear infinite;"></div>
+          </div>
+          <div class="project-info">
+            <span class="card-type">BROADCASTING NETWORK</span>
+            <h3>PULSE</h3>
+            <p>Digital broadcasting network. Live radio, DJ sets, conversations.</p>
+            <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+          </div>
+        </a>
+
         <!-- WaxFeed -->
         <a href="https://wax-feed.com" target="_blank" class="project-card">
-          <div class="project-thumbnail" style="background: #f5f5f0; display: flex; align-items: center; justify-content: center;">
-            <img src="waxfeed_logo_v7.svg" alt="WaxFeed" style="width: 55%; height: auto;">
+          <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 130px; height: 130px; border-radius: 50%; background: #f5f5f0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <img src="waxfeed_logo_v7.svg" alt="WaxFeed" style="width: 65%; height: auto;">
+            </div>
           </div>
           <div class="project-info">
             <span class="card-type">SOCIAL PLATFORM</span>
@@ -659,34 +707,18 @@
 
         <!-- FONMYDJ -->
         <a href="https://www.fonmydj.com" target="_blank" class="project-card">
-          <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center;">
-            <svg viewBox="0 0 320 200" style="width: 85%; height: auto;">
-              <circle cx="160" cy="100" r="70" fill="none" stroke="rgba(245,158,11,0.15)" stroke-width="1"/>
-              <ellipse cx="160" cy="100" rx="70" ry="25" fill="none" stroke="rgba(245,158,11,0.1)" stroke-width="0.8"/>
-              <ellipse cx="160" cy="100" rx="70" ry="50" fill="none" stroke="rgba(245,158,11,0.1)" stroke-width="0.8"/>
-              <ellipse cx="160" cy="100" rx="25" ry="70" fill="none" stroke="rgba(245,158,11,0.1)" stroke-width="0.8"/>
-              <ellipse cx="160" cy="100" rx="50" ry="70" fill="none" stroke="rgba(245,158,11,0.1)" stroke-width="0.8"/>
-              <line x1="90" y1="100" x2="230" y2="100" stroke="rgba(245,158,11,0.08)" stroke-width="0.8"/>
-              <line x1="160" y1="30" x2="160" y2="170" stroke="rgba(245,158,11,0.08)" stroke-width="0.8"/>
-              <circle cx="135" cy="72" r="4" fill="#f59e0b">
-                <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="135" cy="72" r="8" fill="none" stroke="#f59e0b" stroke-width="0.5" opacity="0.3">
-                <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="185" cy="90" r="3" fill="#f59e0b">
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="150" cy="115" r="3.5" fill="#f59e0b">
-                <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="200" cy="105" r="3" fill="#f59e0b">
-                <animate attributeName="opacity" values="1;0.5;1" dur="2.2s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="120" cy="95" r="2.5" fill="#f59e0b" opacity="0.7"/>
-              <text x="160" y="188" text-anchor="middle" fill="#f59e0b" font-family="'Helvetica Neue', sans-serif" font-size="10" font-weight="700" letter-spacing="0.2em" opacity="0.6">FONMYDJ</text>
-            </svg>
+          <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+            <!-- Subtle grid lines -->
+            <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px); background-size: 20px 20px;"></div>
+            <!-- Registration marks -->
+            <div style="position: absolute; top: 12px; left: 12px; width: 12px; height: 12px; border-top: 1px solid rgba(245,158,11,0.15); border-left: 1px solid rgba(245,158,11,0.15);"></div>
+            <div style="position: absolute; top: 12px; right: 12px; width: 12px; height: 12px; border-top: 1px solid rgba(245,158,11,0.15); border-right: 1px solid rgba(245,158,11,0.15);"></div>
+            <div style="position: absolute; bottom: 12px; left: 12px; width: 12px; height: 12px; border-bottom: 1px solid rgba(245,158,11,0.15); border-left: 1px solid rgba(245,158,11,0.15);"></div>
+            <div style="position: absolute; bottom: 12px; right: 12px; width: 12px; height: 12px; border-bottom: 1px solid rgba(245,158,11,0.15); border-right: 1px solid rgba(245,158,11,0.15);"></div>
+            <!-- Bold typographic logo -->
+            <img src="fonmydj-logo.svg" alt="FONMYDJ" style="width: 75%; height: auto; position: relative;">
+            <!-- Pulsing amber dot -->
+            <div style="position: absolute; bottom: 16px; right: 16px; width: 6px; height: 6px; background: #f59e0b; animation: pulse 2s ease-in-out infinite;"></div>
           </div>
           <div class="project-info">
             <span class="card-type">MARKETPLACE</span>
@@ -726,7 +758,7 @@
         <!-- Pain Points -->
         <a href="https://painpoints.site" target="_blank" class="project-card">
           <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center;">
-            <img src="painpoints-linkedin-logo.png" alt="Pain Points" style="width: 55%; height: auto;">
+            <img src="painpoints-linkedin-logo.png" alt="Pain Points" style="width: 55%; height: auto; filter: brightness(0.9);">
           </div>
           <div class="project-info">
             <span class="card-type">WEB3 PLATFORM</span>
