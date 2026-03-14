@@ -298,6 +298,7 @@
     .project-card:nth-child(5) { animation-delay: 0.5s; }
     .project-card:nth-child(6) { animation-delay: 0.6s; }
     .project-card:nth-child(7) { animation-delay: 0.7s; }
+    .project-card:nth-child(8) { animation-delay: 0.8s; }
 
     .project-card:hover {
       transform: translateY(-8px);
@@ -574,6 +575,47 @@
           <div class="project-info">
             <h3>waxfeed</h3>
             <p>letterboxd for albums - social music discovery platform</p>
+          </div>
+        </a>
+
+        <!-- FONMYDJ -->
+        <a href="https://www.fonmydj.com" target="_blank" class="project-card">
+          <div class="project-thumbnail" style="background: #0A0A0A; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+            <!-- Globe wireframe with amber pins -->
+            <svg viewBox="0 0 320 200" style="width: 85%; height: auto;">
+              <!-- Globe wireframe -->
+              <circle cx="160" cy="100" r="70" fill="none" stroke="rgba(245,158,11,0.15)" stroke-width="1"/>
+              <ellipse cx="160" cy="100" rx="70" ry="25" fill="none" stroke="rgba(245,158,11,0.12)" stroke-width="0.8"/>
+              <ellipse cx="160" cy="100" rx="70" ry="50" fill="none" stroke="rgba(245,158,11,0.12)" stroke-width="0.8"/>
+              <ellipse cx="160" cy="100" rx="25" ry="70" fill="none" stroke="rgba(245,158,11,0.12)" stroke-width="0.8"/>
+              <ellipse cx="160" cy="100" rx="50" ry="70" fill="none" stroke="rgba(245,158,11,0.12)" stroke-width="0.8"/>
+              <line x1="90" y1="100" x2="230" y2="100" stroke="rgba(245,158,11,0.1)" stroke-width="0.8"/>
+              <line x1="160" y1="30" x2="160" y2="170" stroke="rgba(245,158,11,0.1)" stroke-width="0.8"/>
+              <!-- Glowing amber pins -->
+              <circle cx="135" cy="72" r="4" fill="#f59e0b">
+                <animate attributeName="opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="135" cy="72" r="8" fill="none" stroke="#f59e0b" stroke-width="0.5" opacity="0.3">
+                <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="185" cy="90" r="3" fill="#f59e0b">
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2.5s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="150" cy="115" r="3.5" fill="#f59e0b">
+                <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1.8s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="200" cy="105" r="3" fill="#f59e0b">
+                <animate attributeName="opacity" values="1;0.5;1" dur="2.2s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="120" cy="95" r="2.5" fill="#f59e0b" opacity="0.7"/>
+              <!-- Title -->
+              <text x="160" y="188" text-anchor="middle" fill="#f59e0b" font-family="'Helvetica Neue', sans-serif" font-size="11" font-weight="700" letter-spacing="0.15em" opacity="0.8">FONMYDJ</text>
+            </svg>
+          </div>
+          <div class="project-info">
+            <h3>fonmydj</h3>
+            <p>the DJ marketplace - find your sound, book the underground</p>
           </div>
         </a>
 
