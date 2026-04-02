@@ -8,35 +8,31 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- SEO -->
-  <title>Shadrack Annor — Developer, Researcher, Creative</title>
+  <title>Shadrack Annor</title>
   <meta name="description" content="Shadrack Annor builds at the intersection of AI, music, and reflective technology. Co-Founder & CTO of Polarity. Brown University CS '27.">
   <meta name="keywords" content="Shadrack Annor, Polarity, reflective technology, AI, Brown University, developer, researcher, WaxFeed, 360 Sound">
   <meta name="author" content="Shadrack Annor">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://shadrackannor.com">
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shadrackannor.com">
-  <meta property="og:title" content="Shadrack Annor — Developer, Researcher, Creative">
-  <meta property="og:description" content="Building at the intersection of AI, music, and reflective technology. Co-Founder & CTO of Polarity. Brown University CS '27.">
+  <meta property="og:title" content="Shadrack Annor">
+  <meta property="og:description" content="Building at the intersection of AI, music, and reflective technology.">
   <meta property="og:image" content="https://shadrackannor.com/og-image.png">
   <meta property="og:site_name" content="Shadrack Annor">
-  <meta property="og:locale" content="en_US">
 
-  <!-- Twitter Card -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://shadrackannor.com">
-  <meta name="twitter:title" content="Shadrack Annor — Developer, Researcher, Creative">
-  <meta name="twitter:description" content="Building at the intersection of AI, music, and reflective technology. Co-Founder & CTO of Polarity. Brown University CS '27.">
+  <meta name="twitter:title" content="Shadrack Annor">
+  <meta name="twitter:description" content="Building at the intersection of AI, music, and reflective technology.">
   <meta name="twitter:image" content="https://shadrackannor.com/og-image.png">
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-  <!-- WASM Particle Engine (Rust) -->
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -46,29 +42,18 @@
     "name": "Shadrack Annor",
     "url": "https://shadrackannor.com",
     "jobTitle": "Co-Founder & CTO",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Polarity",
-      "url": "https://polarity-lab.com"
-    },
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Brown University"
-    },
+    "worksFor": { "@type": "Organization", "name": "Polarity", "url": "https://polarity-lab.com" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Brown University" },
     "sameAs": [
       "https://github.com/sh6drack",
       "https://www.linkedin.com/in/shadrack-annor-38a627235/",
       "https://www.youtube.com/channel/UCEdsKG3TMPbJavCJvYyUCHA"
     ],
-    "knowsAbout": ["Artificial Intelligence", "Cognitive Technology", "Music Production", "Software Engineering"]
+    "knowsAbout": ["Artificial Intelligence", "Reflective Technology", "Music Production", "Software Engineering"]
   }
   </script>
   <style>
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
@@ -77,509 +62,149 @@
 
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 400;
+      font-weight: 700;
       background: #050505;
       color: #fff;
-      overflow-x: hidden;
+      overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      cursor: crosshair;
     }
 
-    /* WebGL canvas background */
-    #webgl-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* Subtle grain overlay */
+    /* Grain */
     body::after {
       content: '';
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
       z-index: 9998;
-      opacity: 0.025;
+      opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-repeat: repeat;
       background-size: 256px 256px;
     }
 
-    /* Main content */
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: clamp(32px, 6vw, 80px) clamp(20px, 5vw, 60px);
-    }
-
-    /* Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: clamp(80px, 14vw, 160px);
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-
-    .header-label {
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #ffffff;
-    }
-
-    .newsletter-form {
-      display: flex;
-      align-items: center;
-      gap: 0;
-    }
-
-    .newsletter-form input {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-right: none;
-      padding: 10px 14px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: #fff;
-      font-family: inherit;
-      text-transform: uppercase;
-      width: 200px;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
-    .newsletter-form input:focus {
-      border-color: rgba(255,255,255,0.4);
-    }
-
-    .newsletter-form input::placeholder {
-      color: rgba(255,255,255,0.2);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .newsletter-form button {
-      background: #fff;
-      border: 1px solid #fff;
-      padding: 10px 14px;
-      color: #050505;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 39px;
-    }
-
-    .newsletter-form button:hover {
-      background: rgba(255,255,255,0.85);
-    }
-
-    /* Hero */
-    .hero {
-      margin-bottom: clamp(80px, 14vw, 180px);
-      text-align: center;
-    }
-
-    .hero-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      margin-bottom: 24px;
-      display: block;
-    }
-
-    .hero h1 {
-      font-weight: 700;
-      font-size: clamp(36px, 7vw, 80px);
-      letter-spacing: -0.03em;
-      line-height: 0.9;
-      text-transform: uppercase;
-      color: #ffffff;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-    }
-
-    .hero-sub {
-      margin-top: 32px;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      line-height: 1.8;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      opacity: 0;
-      transform: translateY(10px);
-      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    @keyframes scanline {
-      0% { top: 0; }
-      100% { top: 100%; }
-    }
-
-    /* Section labels */
-    .section-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.2);
-      margin-bottom: 40px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-
-    .section-label .count {
-      font-size: 9px;
-      color: rgba(255,255,255,0.12);
-      letter-spacing: 0.1em;
-    }
-
-    /* Projects grid */
-    .projects-section {
-      margin-bottom: clamp(80px, 12vw, 160px);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2px;
-    }
-
-    @media (max-width: 768px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .project-card {
-      background: #0a0a0a;
-      border: none;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      position: relative;
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .project-card:nth-child(1) { animation-delay: 0.05s; }
-    .project-card:nth-child(2) { animation-delay: 0.1s; }
-    .project-card:nth-child(3) { animation-delay: 0.15s; }
-    .project-card:nth-child(4) { animation-delay: 0.2s; }
-    .project-card:nth-child(5) { animation-delay: 0.25s; }
-    .project-card:nth-child(6) { animation-delay: 0.3s; }
-    .project-card:nth-child(7) { animation-delay: 0.35s; }
-    .project-card:nth-child(8) { animation-delay: 0.4s; }
-    .project-card:nth-child(9) { animation-delay: 0.45s; }
-
-    .project-card:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-      max-width: 50%;
-      justify-self: center;
-    }
-
-    @media (max-width: 768px) {
-      .project-card:last-child:nth-child(odd) {
-        max-width: 100%;
-      }
-    }
-
-    .project-card:hover {
-      background: #0e0e0e;
-    }
-
-    .project-card:hover .project-info h3 {
-      color: #fff;
-    }
-
-    .project-card:hover .card-arrow {
-      opacity: 1;
-      transform: translate(0, -50%);
-    }
-
-    .project-thumbnail {
-      aspect-ratio: 16/10;
-      background: #080808;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-thumbnail img,
-    .project-thumbnail iframe {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .project-thumbnail iframe {
+    #webgl-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
       pointer-events: none;
     }
 
-    /* Polarity card */
-    .project-card.polarity .project-thumbnail {
+    .landing {
+      position: relative;
+      z-index: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #080808;
+      text-align: center;
+      gap: clamp(60px, 10vh, 120px);
+      padding: 40px;
     }
 
-    .orbital-animation {
-      width: 180px;
-      height: 180px;
-      position: relative;
-    }
-
-    .orbital-animation svg {
-      width: 100%;
-      height: 100%;
-      animation: spin 25s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .orbital-animation .orbital-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    /* Name */
+    .name {
+      font-size: clamp(32px, 7vw, 90px);
       font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      opacity: 0.4;
+      color: rgba(255,255,255,0.85);
+      line-height: 1;
+      opacity: 0;
+      animation: materialize 2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+      user-select: none;
     }
 
-    .project-info {
-      padding: clamp(16px, 2.5vw, 24px);
+    @keyframes materialize {
+      from { opacity: 0; }
+      to { opacity: 0.85; }
+    }
+
+    /* Fork */
+    .fork {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      width: min(700px, 90vw);
+      opacity: 0;
+      animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .fork-block {
       position: relative;
+      background: rgba(255,255,255,0.02);
+      padding: clamp(32px, 5vw, 56px) clamp(24px, 4vw, 40px);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.5s ease;
+      min-height: clamp(120px, 18vw, 200px);
     }
 
-    .project-info .card-type {
+    .fork-block:hover {
+      background: rgba(255,255,255,0.05);
+    }
+
+    .fork-block:hover .fork-label {
+      color: #fff;
+      letter-spacing: 0.08em;
+    }
+
+    .fork-block:hover .fork-count {
+      color: rgba(255,255,255,0.3);
+    }
+
+    .fork-label {
+      font-size: clamp(20px, 3.5vw, 36px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      line-height: 1;
+      transition: all 0.4s ease;
+      margin-bottom: 8px;
+    }
+
+    .fork-count {
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.15);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .project-info h3 {
-      font-weight: 700;
-      font-size: clamp(16px, 1.8vw, 20px);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      margin-bottom: 6px;
-      color: rgba(255,255,255,0.85);
-      transition: color 0.3s;
-    }
-
-    .project-info p {
-      font-weight: 400;
-      font-size: 11px;
-      color: rgba(255,255,255,0.3);
-      line-height: 1.5;
-      letter-spacing: 0.02em;
-    }
-
-    .card-arrow {
-      position: absolute;
-      top: 50%;
-      right: clamp(16px, 2.5vw, 24px);
-      transform: translate(-4px, -50%);
-      opacity: 0;
-      transition: all 0.3s ease;
-      color: rgba(255,255,255,0.4);
-    }
-
-    /* YouTube play overlay */
-    .youtube-thumbnail {
-      position: relative;
-      cursor: pointer;
-    }
-
-    .youtube-thumbnail img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .play-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 48px;
-      height: 48px;
-      background: rgba(255,255,255,0.95);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-
-    .play-button::after {
-      content: '';
-      border-style: solid;
-      border-width: 8px 0 8px 14px;
-      border-color: transparent transparent transparent #050505;
-      margin-left: 3px;
-    }
-
-    .project-card:hover .play-button {
-      background: #fff;
-      transform: translate(-50%, -50%) scale(1.08);
-    }
-
-    /* Divider */
-    .divider {
-      height: 1px;
-      background: rgba(255,255,255,0.06);
-      margin: clamp(60px, 10vw, 120px) 0;
-    }
-
-    /* Footer */
-    .footer {
-      padding-bottom: clamp(40px, 6vw, 80px);
-    }
-
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 40px;
-      margin-bottom: 60px;
-    }
-
-    .footer-tagline {
-      font-weight: 700;
-      font-size: clamp(24px, 4vw, 40px);
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
       color: rgba(255,255,255,0.08);
-      line-height: 1;
+      transition: color 0.4s;
     }
 
-    .footer-links {
-      display: flex;
-      gap: clamp(20px, 4vw, 40px);
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: rgba(255,255,255,0.35);
-      text-decoration: none;
-      font-size: 11px;
+    /* Bottom edge mark */
+    .edge {
+      position: fixed;
+      bottom: 24px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .footer-links a:hover {
-      color: #fff;
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-copyright {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.12);
-    }
-
-    /* Form message */
-    .form-message {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 6px;
+      color: rgba(255,255,255,0.06);
+      z-index: 1;
       opacity: 0;
-      transition: opacity 0.3s;
+      animation: fadeIn 1s ease 2.4s forwards;
+      user-select: none;
     }
 
-    .form-message.visible {
-      opacity: 1;
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .newsletter-form input {
-        flex: 1;
-        min-width: 0;
-        width: 160px;
-      }
-
-      .hero h1 {
-        font-size: clamp(40px, 12vw, 80px);
-      }
-
-      .footer-top {
-        flex-direction: column;
+    @media (max-width: 500px) {
+      .fork {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -595,248 +220,25 @@
 </head>
 <body>
   <canvas id="webgl-bg"></canvas>
-  <div class="container">
-    <!-- Header -->
-    <header class="header">
-      <span class="header-label">SHADRACK ANNOR</span>
-      <div>
-        <form class="newsletter-form" id="newsletter-form">
-          <input type="email" name="email" placeholder="EMAIL" required>
-          <button type="submit" aria-label="Subscribe"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-        </form>
-        <p id="newsletter-message" class="form-message"></p>
-      </div>
-    </header>
 
-    <!-- Projects -->
-    <section class="projects-section">
-      <div class="section-label">
-        <span>SELECTED WORK</span>
-        <span class="count">5 PROJECTS</span>
-      </div>
-      <div class="projects-grid">
-        <!-- Polarity -->
-        <a href="https://polaritygps.com" target="_blank" class="project-card polarity">
-          <div class="project-thumbnail">
-            <div class="orbital-animation">
-              <svg viewBox="0 0 100 100">
-                <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#4ECDC4" stroke-width="1.5" transform="rotate(-60 50 50)" opacity="0.7"/>
-                <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#FFA07A" stroke-width="1.5" transform="rotate(60 50 50)" opacity="0.7"/>
-                <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#BB8FCE" stroke-width="1.5" opacity="0.7"/>
-                <circle cx="50" cy="50" r="6" fill="#4ECDC4"/>
-                <circle cx="70" cy="25" r="2.5" fill="#4ECDC4"/>
-                <circle cx="30" cy="25" r="2.5" fill="#FFA07A"/>
-                <circle cx="90" cy="50" r="2.5" fill="#BB8FCE"/>
-              </svg>
-              <span class="orbital-text">POLARITY</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="card-type">REFLECTIVE TECHNOLOGY</span>
-            <h3>POLARITY</h3>
-            <p>Co-Founder. The first AI that reflects you. Interdisciplinary research laboratory.</p>
-            <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
-          </div>
-        </a>
+  <div class="landing">
+    <h1 class="name">SHADRACK ANNOR</h1>
 
-        <!-- WaxFeed -->
-        <a href="https://wax-feed.com" target="_blank" class="project-card">
-          <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center;">
-            <img src="waxfeed-disc-only.svg" alt="WaxFeed" style="width: 38%; height: auto; animation: spin 8s linear infinite;">
-          </div>
-          <div class="project-info">
-            <span class="card-type">SOCIAL PLATFORM</span>
-            <h3>WAXFEED</h3>
-            <p>Letterboxd for albums. Social music discovery.</p>
-            <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
-          </div>
-        </a>
-
-        <!-- AVDP Podcast -->
-        <a href="https://www.youtube.com/channel/UCEdsKG3TMPbJavCJvYyUCHA" target="_blank" class="project-card" id="avdp-card">
-          <div class="project-thumbnail youtube-thumbnail" id="avdp-thumbnail">
-            <img src="" alt="Latest AVDP Episode" id="avdp-img" style="display: none;">
-            <div class="play-button"></div>
-            <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #080808;">
-              <span style="opacity: 0.15; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">LOADING...</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <span class="card-type">PODCAST</span>
-            <h3 id="avdp-title">A VERY DISTANT PERSPECTIVE</h3>
-            <p>Conversations that matter. Experimental interview format.</p>
-            <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
-          </div>
-        </a>
-
-        <!-- 360 Sound DJ Sets (YouTube) -->
-        <a href="https://youtube.com/playlist?list=PLDbiHgLJCldhYCkz-76FjazHXO06Egv-b" target="_blank" class="project-card">
-          <div class="project-thumbnail youtube-thumbnail">
-            <img src="https://img.youtube.com/vi/532SNDV2bWI/maxresdefault.jpg" alt="360 Sound DJ Sets" onerror="this.src='https://img.youtube.com/vi/532SNDV2bWI/hqdefault.jpg'">
-            <div class="play-button"></div>
-          </div>
-          <div class="project-info">
-            <span class="card-type">VIDEO SERIES</span>
-            <h3>360 SOUND DJ SETS</h3>
-            <p>DJ sets from scenic locations across the globe.</p>
-            <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
-          </div>
-        </a>
-
-        <!-- WBRU 360 -->
-        <a href="https://linktr.ee/wbru360" target="_blank" class="project-card">
-          <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center; padding: 40px;">
-            <img src="WBRU360-TESTSOHNE kursiv white transparent.png" alt="WBRU 360" style="width: 100%; height: auto; max-width: 260px; opacity: 0.85;">
-          </div>
-          <div class="project-info">
-            <span class="card-type">CREATIVE DIRECTION</span>
-            <h3>WBRU 360</h3>
-            <p>Transforming college radio into multimedia studio. (June 2025 to February 2026)</p>
-            <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
-          </div>
-        </a>
-
-
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <div class="divider"></div>
-    <footer class="footer">
-      <div class="footer-top">
-        <p class="footer-tagline">YOUR MOUNTAIN<br>IS WAITING.</p>
-
-        <div class="footer-links">
-          <a href="mailto:shadrack@brown.edu">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            EMAIL
-          </a>
-          <a href="https://github.com/sh6drack" target="_blank">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-            GITHUB
-          </a>
-          <a href="https://www.linkedin.com/in/shadrack-annor-38a627235/" target="_blank">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-            </svg>
-            LINKEDIN
-          </a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span class="footer-copyright">BROWN UNIVERSITY '27 / CS &amp; RELIGIOUS STUDIES</span>
-        <span class="footer-copyright">2026</span>
-      </div>
-    </footer>
+    <nav class="fork">
+      <a href="writing.html" class="fork-block">
+        <span class="fork-label">WRITING</span>
+        <span class="fork-count">11 TRANSMISSIONS</span>
+      </a>
+      <a href="work.html" class="fork-block">
+        <span class="fork-label">WORK</span>
+        <span class="fork-count">5 PROJECTS</span>
+      </a>
+    </nav>
   </div>
 
-  <script>
-    // Newsletter form handler
-    const newsletterForm = document.getElementById('newsletter-form');
-    const newsletterMessage = document.getElementById('newsletter-message');
+  <span class="edge">BROWN UNIVERSITY / COMPUTER SCIENCE & RELIGIOUS STUDIES '27</span>
 
-    if (newsletterForm) {
-      newsletterForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = newsletterForm.email.value;
-        const button = newsletterForm.querySelector('button');
-        const originalContent = button.textContent;
-
-        button.textContent = '...';
-        button.disabled = true;
-
-        try {
-          const response = await fetch('https://formspree.io/f/mrezbbwk', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, source: 'shadrack-portfolio' })
-          });
-
-          if (response.ok) {
-            newsletterMessage.textContent = "ADDED";
-            newsletterMessage.style.color = '#4ECDC4';
-            newsletterMessage.classList.add('visible');
-            newsletterForm.email.value = '';
-          } else {
-            throw new Error('Failed');
-          }
-        } catch (err) {
-          newsletterMessage.textContent = 'ERROR. TRY AGAIN.';
-          newsletterMessage.style.color = '#FFA07A';
-          newsletterMessage.classList.add('visible');
-        }
-
-        button.textContent = originalContent;
-        button.disabled = false;
-
-        setTimeout(() => {
-          newsletterMessage.classList.remove('visible');
-        }, 3000);
-      });
-    }
-
-    // Fetch latest YouTube video
-    async function fetchLatestVideo() {
-      const channelId = 'UCEdsKG3TMPbJavCJvYyUCHA';
-      const thumbnail = document.getElementById('avdp-thumbnail');
-      const img = document.getElementById('avdp-img');
-      const card = document.getElementById('avdp-card');
-
-      try {
-        const videoId = await getLatestVideoId(channelId);
-
-        if (videoId) {
-          img.src = 'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg';
-          img.style.display = 'block';
-          img.onerror = function() {
-            img.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg';
-          };
-          card.href = 'https://www.youtube.com/watch?v=' + videoId;
-
-          const loadingEl = thumbnail.querySelector('div:last-child');
-          if (loadingEl && loadingEl.textContent.indexOf('LOADING') !== -1) {
-            loadingEl.style.display = 'none';
-          }
-        }
-      } catch (err) {
-        console.log('Could not fetch latest video:', err);
-      }
-    }
-
-    async function getLatestVideoId(channelId) {
-      try {
-        const rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
-        const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl);
-        const response = await fetch(proxyUrl);
-        const text = await response.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(text, 'text/xml');
-        const entries = xml.querySelectorAll('entry');
-
-        if (entries.length > 0) {
-          const latestEntry = entries[0];
-          const videoIdEl = latestEntry.querySelector('yt\\:videoId, videoId');
-          if (videoIdEl) {
-            return videoIdEl.textContent;
-          }
-        }
-        return null;
-      } catch (err) {
-        console.log('RSS fetch failed:', err);
-        return null;
-      }
-    }
-
-    fetchLatestVideo();
-  </script>
-
-  <!-- WASM + Raw WebGL Background (Rust particle engine) -->
+  <!-- WASM Particle Engine -->
   <script type="module">
     import init, { ParticleSystem } from './wasm-pkg/wasm_particles.js';
 
@@ -852,7 +254,6 @@
       var PARTICLE_COUNT = 3000;
       var sys = new ParticleSystem(PARTICLE_COUNT);
 
-      // Shaders
       var vsSource = [
         'attribute vec3 aPosition;',
         'attribute float aSize;',
@@ -864,8 +265,8 @@
         '  float depth = 1.0 / (1.0 - aPosition.z * 0.05);',
         '  vec2 pos = aPosition.xy * depth;',
         '  gl_Position = vec4(pos.x / (uResolution.x / uResolution.y), pos.y, 0.0, 1.0);',
-        '  gl_PointSize = aSize * depth * uPixelRatio * 1.5;',
-        '  vAlpha = aAlpha * 0.4;',
+        '  gl_PointSize = aSize * depth * uPixelRatio * 2.0;',
+        '  vAlpha = aAlpha * 0.6;',
         '}'
       ].join('\n');
 
@@ -875,7 +276,7 @@
         'void main() {',
         '  float d = length(gl_PointCoord - vec2(0.5));',
         '  if (d > 0.5) discard;',
-        '  float glow = exp(-d * d * 12.0);',
+        '  float glow = exp(-d * d * 8.0);',
         '  gl_FragColor = vec4(1.0, 1.0, 1.0, glow * vAlpha);',
         '}'
       ].join('\n');
@@ -901,17 +302,14 @@
       var uResolution = gl.getUniformLocation(program, 'uResolution');
       var uPixelRatio = gl.getUniformLocation(program, 'uPixelRatio');
 
-      // Buffers
       var posBuf = gl.createBuffer();
       var sizeBuf = gl.createBuffer();
       var alphaBuf = gl.createBuffer();
 
-      // Pre-allocate typed arrays
       var posData = new Float32Array(PARTICLE_COUNT * 3);
       var sizeData = new Float32Array(PARTICLE_COUNT);
       var alphaData = new Float32Array(PARTICLE_COUNT);
 
-      // Mouse
       var mouse = { x: 0, y: 0, tx: 0, ty: 0, active: false };
       document.addEventListener('mousemove', function(e) {
         mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -920,11 +318,8 @@
       });
       document.addEventListener('mouseleave', function() { mouse.active = false; });
 
-      // Scroll
       var scrollY = 0;
-      window.addEventListener('scroll', function() { scrollY = window.scrollY; }, { passive: true });
 
-      // Resize
       function resize() {
         var dpr = Math.min(window.devicePixelRatio, 2);
         canvas.width = window.innerWidth * dpr;
@@ -937,7 +332,6 @@
       resize();
       window.addEventListener('resize', resize);
 
-      // Blend
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
       gl.disable(gl.DEPTH_TEST);
@@ -949,19 +343,15 @@
         var dt = Math.min((now - lastTime) / 1000, 0.05);
         lastTime = now;
 
-        // Smooth mouse
         mouse.x += (mouse.tx - mouse.x) * 0.06;
         mouse.y += (mouse.ty - mouse.y) * 0.06;
 
-        // Update WASM simulation
         sys.set_mouse(mouse.x, mouse.y, mouse.active);
         sys.set_scroll(scrollY);
         sys.tick(dt);
 
-        // Get render data from Rust
         var renderData = sys.get_render_data();
 
-        // Unpack interleaved data [x, y, z, size, alpha] per particle
         for (var i = 0; i < PARTICLE_COUNT; i++) {
           var off = i * 5;
           posData[i * 3] = renderData[off];
@@ -971,7 +361,6 @@
           alphaData[i] = renderData[off + 4];
         }
 
-        // Clear
         gl.clearColor(0.0196, 0.0196, 0.0196, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -979,19 +368,16 @@
         gl.uniform2f(uResolution, canvas.width, canvas.height);
         gl.uniform1f(uPixelRatio, Math.min(window.devicePixelRatio, 2));
 
-        // Upload positions
         gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
         gl.bufferData(gl.ARRAY_BUFFER, posData, gl.DYNAMIC_DRAW);
         gl.enableVertexAttribArray(aPosition);
         gl.vertexAttribPointer(aPosition, 3, gl.FLOAT, false, 0, 0);
 
-        // Upload sizes
         gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuf);
         gl.bufferData(gl.ARRAY_BUFFER, sizeData, gl.DYNAMIC_DRAW);
         gl.enableVertexAttribArray(aSize);
         gl.vertexAttribPointer(aSize, 1, gl.FLOAT, false, 0, 0);
 
-        // Upload alphas
         gl.bindBuffer(gl.ARRAY_BUFFER, alphaBuf);
         gl.bufferData(gl.ARRAY_BUFFER, alphaData, gl.DYNAMIC_DRAW);
         gl.enableVertexAttribArray(aAlpha);
