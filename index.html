@@ -1018,7 +1018,11 @@
       var gl = canvas.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: false });
       if (!gl) return;
 
-      var PARTICLE_COUNT = 3000;
+      var isMobile = window.innerWidth <= 768;
+      var PARTICLE_COUNT = isMobile ? 1200 : 3000;
+      var POINT_SCALE = isMobile ? 1.4 : 2.0;
+      var ALPHA_MULT = isMobile ? 0.3 : 0.6;
+      var GLOW_FALLOFF = isMobile ? 12.0 : 8.0;
       var sys = new ParticleSystem(PARTICLE_COUNT);
 
       var vsSource = [
@@ -1027,23 +1031,26 @@
         'attribute float aAlpha;',
         'uniform vec2 uResolution;',
         'uniform float uPixelRatio;',
+        'uniform float uPointScale;',
+        'uniform float uAlphaMult;',
         'varying float vAlpha;',
         'void main() {',
         '  float depth = 1.0 / (1.0 - aPosition.z * 0.05);',
         '  vec2 pos = aPosition.xy * depth;',
         '  gl_Position = vec4(pos.x / (uResolution.x / uResolution.y), pos.y, 0.0, 1.0);',
-        '  gl_PointSize = aSize * depth * uPixelRatio * 2.0;',
-        '  vAlpha = aAlpha * 0.6;',
+        '  gl_PointSize = aSize * depth * uPixelRatio * uPointScale;',
+        '  vAlpha = aAlpha * uAlphaMult;',
         '}'
       ].join('\n');
 
       var fsSource = [
         'precision mediump float;',
         'varying float vAlpha;',
+        'uniform float uGlowFalloff;',
         'void main() {',
         '  float d = length(gl_PointCoord - vec2(0.5));',
         '  if (d > 0.5) discard;',
-        '  float glow = exp(-d * d * 8.0);',
+        '  float glow = exp(-d * d * uGlowFalloff);',
         '  gl_FragColor = vec4(1.0, 1.0, 1.0, glow * vAlpha);',
         '}'
       ].join('\n');
@@ -1068,6 +1075,9 @@
       var aAlpha = gl.getAttribLocation(program, 'aAlpha');
       var uResolution = gl.getUniformLocation(program, 'uResolution');
       var uPixelRatio = gl.getUniformLocation(program, 'uPixelRatio');
+      var uPointScale = gl.getUniformLocation(program, 'uPointScale');
+      var uAlphaMult = gl.getUniformLocation(program, 'uAlphaMult');
+      var uGlowFalloff = gl.getUniformLocation(program, 'uGlowFalloff');
 
       var posBuf = gl.createBuffer();
       var sizeBuf = gl.createBuffer();
@@ -1089,7 +1099,7 @@
       window.addEventListener('scroll', function() { scrollY = window.scrollY; }, { passive: true });
 
       function resize() {
-        var dpr = Math.min(window.devicePixelRatio, 2);
+        var dpr = Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2);
         canvas.width = window.innerWidth * dpr;
         canvas.height = window.innerHeight * dpr;
         canvas.style.width = window.innerWidth + 'px';
@@ -1135,6 +1145,9 @@
         gl.useProgram(program);
         gl.uniform2f(uResolution, canvas.width, canvas.height);
         gl.uniform1f(uPixelRatio, Math.min(window.devicePixelRatio, 2));
+        gl.uniform1f(uPointScale, POINT_SCALE);
+        gl.uniform1f(uAlphaMult, ALPHA_MULT);
+        gl.uniform1f(uGlowFalloff, GLOW_FALLOFF);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
         gl.bufferData(gl.ARRAY_BUFFER, posData, gl.DYNAMIC_DRAW);
