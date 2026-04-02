@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <title>Shadrack Annor</title>
-  <meta name="description" content="Shadrack Annor builds at the intersection of AI, music, and reflective technology. Co-Founder & CTO of Polarity. Brown University CS '27.">
-  <meta name="keywords" content="Shadrack Annor, Polarity, reflective technology, AI, Brown University, developer, researcher, WaxFeed, 360 Sound">
+  <meta name="description" content="Shadrack Annor. A Series of Transmissions on perception, consciousness, and identity. Co-Founder & CTO of Polarity. Brown University CS & Religious Studies '27.">
+  <meta name="keywords" content="Shadrack Annor, A Series of Transmissions, Polarity, reflective technology, AI, consciousness, perception, identity, Brown University, developer, researcher, WaxFeed, essays">
   <meta name="author" content="Shadrack Annor">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://shadrackannor.com">
@@ -17,13 +17,13 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shadrackannor.com">
   <meta property="og:title" content="Shadrack Annor">
-  <meta property="og:description" content="Building at the intersection of AI, music, and reflective technology.">
+  <meta property="og:description" content="A Series of Transmissions. Building at the intersection of AI, music, and reflective technology.">
   <meta property="og:image" content="https://shadrackannor.com/og-image.png">
   <meta property="og:site_name" content="Shadrack Annor">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shadrack Annor">
-  <meta name="twitter:description" content="Building at the intersection of AI, music, and reflective technology.">
+  <meta name="twitter:description" content="A Series of Transmissions. Building at the intersection of AI, music, and reflective technology.">
   <meta name="twitter:image" content="https://shadrackannor.com/og-image.png">
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -44,7 +44,7 @@
       "https://www.linkedin.com/in/shadrack-annor-38a627235/",
       "https://www.youtube.com/channel/UCEdsKG3TMPbJavCJvYyUCHA"
     ],
-    "knowsAbout": ["Artificial Intelligence", "Reflective Technology", "Music Production", "Software Engineering"]
+    "knowsAbout": ["Artificial Intelligence", "Reflective Technology", "Music Production", "Software Engineering", "Consciousness", "Perception"]
   }
   </script>
   <style>
@@ -102,7 +102,7 @@
       min-height: 100dvh;
     }
 
-    #view-writing.active,
+    #view-transmissions.active,
     #view-work.active {
       display: flex;
       flex-direction: column;
@@ -626,9 +626,9 @@
   <!-- ===== LANDING ===== -->
   <div id="view-landing" class="view active first-load">
     <nav class="fork">
-      <a href="#writing" class="fork-block">
-        <span class="fork-label">WRITING</span>
-        <span class="fork-count">11 TRANSMISSIONS</span>
+      <a href="#transmissions" class="fork-block">
+        <span class="fork-label">A SERIES OF TRANSMISSIONS</span>
+        <span class="fork-count">11 ENTRIES</span>
       </a>
       <a href="#work" class="fork-block">
         <span class="fork-label">WORK</span>
@@ -640,19 +640,19 @@
   </div>
 
   <!-- ===== WRITING ===== -->
-  <div id="view-writing" class="view">
+  <div id="view-transmissions" class="view">
     <div class="container container-narrow">
       <header class="header">
         <a href="#" class="header-home">SHADRACK ANNOR</a>
         <nav class="header-nav">
-          <a href="#writing" class="active">WRITING</a>
+          <a href="#transmissions" class="active">TRANSMISSIONS</a>
           <a href="#work">WORK</a>
         </nav>
       </header>
 
       <section class="writing-section">
         <div class="section-label">
-          <span>TRANSMISSIONS</span>
+          <span>A SERIES OF TRANSMISSIONS</span>
           <span class="count">11</span>
         </div>
         <div class="writing-list">
@@ -738,7 +738,7 @@
         <a href="#" class="header-home">SHADRACK ANNOR</a>
         <div class="header-right">
           <nav class="header-nav">
-            <a href="#writing">WRITING</a>
+            <a href="#transmissions">TRANSMISSIONS</a>
             <a href="#work" class="active">WORK</a>
           </nav>
           <div>
@@ -870,9 +870,9 @@
         for (var i = 0; i < views.length; i++) views[i].classList.remove('active');
 
         var view, title;
-        if (hash === '#writing') {
-          view = 'view-writing';
-          title = 'Writing \u2014 Shadrack Annor';
+        if (hash === '#transmissions') {
+          view = 'view-transmissions';
+          title = 'Transmissions \u2014 Shadrack Annor';
         } else if (hash === '#work') {
           view = 'view-work';
           title = 'Work \u2014 Shadrack Annor';
@@ -891,7 +891,7 @@
         var link = e.target.closest('a[href^="#"]');
         if (!link) return;
         var href = link.getAttribute('href');
-        if (href === '#writing' || href === '#work') {
+        if (href === '#transmissions' || href === '#work') {
           e.preventDefault();
           history.pushState(null, '', '/' + href);
           navigate(href);
