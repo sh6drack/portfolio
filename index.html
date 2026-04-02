@@ -7,7 +7,6 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- SEO -->
   <title>Shadrack Annor</title>
   <meta name="description" content="Shadrack Annor builds at the intersection of AI, music, and reflective technology. Co-Founder & CTO of Polarity. Brown University CS '27.">
   <meta name="keywords" content="Shadrack Annor, Polarity, reflective technology, AI, Brown University, developer, researcher, WaxFeed, 360 Sound">
@@ -15,7 +14,6 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://shadrackannor.com">
 
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://shadrackannor.com">
   <meta property="og:title" content="Shadrack Annor">
@@ -23,18 +21,15 @@
   <meta property="og:image" content="https://shadrackannor.com/og-image.png">
   <meta property="og:site_name" content="Shadrack Annor">
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Shadrack Annor">
   <meta name="twitter:description" content="Building at the intersection of AI, music, and reflective technology.">
   <meta name="twitter:image" content="https://shadrackannor.com/og-image.png">
 
-  <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
-  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -53,30 +48,23 @@
   }
   </script>
   <style>
+    /* ===== RESET ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      -webkit-tap-highlight-color: transparent;
-    }
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
 
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-weight: 700;
+      font-weight: 500;
       background: #050505;
       color: #fff;
-      overflow: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      cursor: crosshair;
     }
 
-    /* Grain */
+    body.is-landing { overflow: hidden; height: 100vh; height: 100dvh; cursor: crosshair; }
+    body.is-content { overflow-x: hidden; min-height: 100vh; }
+
+    /* ===== GRAIN ===== */
     body::after {
       content: '';
       position: fixed;
@@ -97,49 +85,44 @@
       pointer-events: none;
     }
 
-    .landing {
-      position: relative;
-      z-index: 1;
+    /* ===== VIEW SYSTEM ===== */
+    .view { display: none; }
+
+    #view-landing.active {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      position: relative;
+      z-index: 1;
       text-align: center;
-      gap: clamp(60px, 10vh, 120px);
-      padding: 40px;
+      gap: clamp(40px, 8vh, 120px);
+      padding: clamp(16px, 4vw, 40px);
+      min-height: 100vh;
+      min-height: 100dvh;
     }
 
-    /* Name */
-    .name {
-      font-size: clamp(14px, 2vw, 24px);
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-      line-height: 1;
-      opacity: 0;
-      opacity: 0;
-      animation: materialize 0.6s ease 0.2s forwards;
-      user-select: none;
+    #view-writing.active,
+    #view-work.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
-    @keyframes materialize {
-      from { opacity: 0; }
-      to { opacity: 0.85; }
-    }
-
-    /* Fork */
+    /* ===== LANDING ===== */
     .fork {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1px;
       width: min(700px, 90vw);
-      opacity: 0;
-      animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
+      max-width: 100%;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    #view-landing.first-load .fork {
+      opacity: 0;
+      animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
     }
 
     .fork-block {
@@ -155,18 +138,9 @@
       min-height: clamp(120px, 18vw, 200px);
     }
 
-    .fork-block:hover {
-      background: rgba(255,255,255,0.05);
-    }
-
-    .fork-block:hover .fork-label {
-      color: #fff;
-      letter-spacing: 0.08em;
-    }
-
-    .fork-block:hover .fork-count {
-      color: rgba(255,255,255,0.3);
-    }
+    .fork-block:hover { background: rgba(255,255,255,0.05); }
+    .fork-block:hover .fork-label { color: #fff; letter-spacing: 0.08em; }
+    .fork-block:hover .fork-count { color: rgba(255,255,255,0.3); }
 
     .fork-label {
       font-size: clamp(20px, 3.5vw, 36px);
@@ -188,7 +162,6 @@
       transition: color 0.4s;
     }
 
-    /* Byline - between fork and footer */
     .byline {
       position: fixed;
       bottom: 80px;
@@ -198,9 +171,12 @@
       letter-spacing: 0.25em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.12);
+      user-select: none;
+    }
+
+    #view-landing.first-load .byline {
       opacity: 0;
       animation: fadeIn 1s ease 1.2s forwards;
-      user-select: none;
     }
 
     .edge {
@@ -212,18 +188,429 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.05);
-      opacity: 0;
-      animation: fadeIn 1s ease 1.6s forwards;
       user-select: none;
     }
 
-    @media (max-width: 500px) {
-      .fork {
-        grid-template-columns: 1fr;
-      }
+    #view-landing.first-load .edge {
+      opacity: 0;
+      animation: fadeIn 1s ease 1.6s forwards;
     }
 
-    /* Reduced motion */
+    /* ===== SHARED CONTENT ===== */
+    .container {
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(32px, 6vw, 80px) clamp(20px, 5vw, 60px);
+    }
+
+    .container-narrow { max-width: 800px; }
+    .container-wide { max-width: 1100px; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: clamp(80px, 14vw, 160px);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-home {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .header-home:hover { opacity: 0.6; }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 3vw, 32px);
+    }
+
+    .header-nav {
+      display: flex;
+      gap: clamp(16px, 3vw, 32px);
+    }
+
+    .header-nav a {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover { color: rgba(255,255,255,0.6); }
+    .header-nav a.active { color: rgba(255,255,255,0.7); }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      margin-bottom: 40px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .section-label .count {
+      font-size: 9px;
+      color: rgba(255,255,255,0.12);
+      letter-spacing: 0.1em;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: clamp(60px, 10vw, 120px) 0;
+    }
+
+    .footer { padding-bottom: clamp(40px, 6vw, 80px); }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-tagline {
+      font-weight: 700;
+      font-size: clamp(24px, 4vw, 40px);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: clamp(20px, 4vw, 40px);
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links a:hover { color: #fff; }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copyright {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.12);
+    }
+
+    /* ===== WRITING ===== */
+    .writing-section {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    .writing-list { display: flex; flex-direction: column; gap: 0; }
+
+    .writing-entry {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s;
+    }
+
+    .writing-entry:first-child { border-top: 1px solid rgba(255,255,255,0.04); }
+    .writing-entry:hover { padding-left: 12px; }
+    .writing-entry:hover .writing-title { color: #fff; }
+
+    .writing-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      transition: color 0.2s;
+    }
+
+    .writing-date {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.12);
+      flex-shrink: 0;
+      margin-left: 20px;
+    }
+
+    .writing-origin {
+      margin-top: 24px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.1);
+    }
+
+    .writing-origin a {
+      color: rgba(255,255,255,0.15);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .writing-origin a:hover { color: rgba(255,255,255,0.4); }
+
+    /* ===== WORK ===== */
+    .newsletter-form { display: flex; align-items: center; gap: 0; }
+
+    .newsletter-form input {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-right: none;
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: #fff;
+      font-family: inherit;
+      text-transform: uppercase;
+      width: 180px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .newsletter-form input:focus { border-color: rgba(255,255,255,0.4); }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255,255,255,0.2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .newsletter-form button {
+      background: #fff;
+      border: 1px solid #fff;
+      padding: 10px 14px;
+      color: #050505;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 39px;
+    }
+
+    .newsletter-form button:hover { background: rgba(255,255,255,0.85); }
+
+    .form-message {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 6px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .form-message.visible { opacity: 1; }
+
+    .projects-section {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+    }
+
+    .project-card {
+      background: #0a0a0a;
+      border: none;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .project-card:nth-child(1) { animation-delay: 0.05s; }
+    .project-card:nth-child(2) { animation-delay: 0.1s; }
+    .project-card:nth-child(3) { animation-delay: 0.15s; }
+    .project-card:nth-child(4) { animation-delay: 0.2s; }
+    .project-card:nth-child(5) { animation-delay: 0.25s; }
+
+    .project-card:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      max-width: 50%;
+      justify-self: center;
+    }
+
+    .project-card:hover { background: #0e0e0e; }
+    .project-card:hover .project-info h3 { color: #fff; }
+    .project-card:hover .card-arrow { opacity: 1; transform: translate(0, -50%); }
+
+    .project-thumbnail {
+      aspect-ratio: 16/10;
+      background: #080808;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-thumbnail img,
+    .project-thumbnail iframe { width: 100%; height: 100%; object-fit: cover; }
+
+    .project-card.polarity .project-thumbnail {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #080808;
+    }
+
+    .orbital-animation { width: 180px; height: 180px; position: relative; }
+    .orbital-animation svg { width: 100%; height: 100%; animation: spin 25s linear infinite; }
+
+    .orbital-animation .orbital-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    .project-info { padding: clamp(16px, 2.5vw, 24px); position: relative; }
+
+    .project-info .card-type {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.15);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .project-info h3 {
+      font-weight: 700;
+      font-size: clamp(16px, 1.8vw, 20px);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.3s;
+    }
+
+    .project-info p {
+      font-weight: 500;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+    }
+
+    .card-arrow {
+      position: absolute;
+      top: 50%;
+      right: clamp(16px, 2.5vw, 24px);
+      transform: translate(-4px, -50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .youtube-thumbnail { position: relative; cursor: pointer; }
+    .youtube-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
+
+    .play-button {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px; height: 48px;
+      background: rgba(255,255,255,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .play-button::after {
+      content: '';
+      border-style: solid;
+      border-width: 8px 0 8px 14px;
+      border-color: transparent transparent transparent #050505;
+      margin-left: 3px;
+    }
+
+    .project-card:hover .play-button {
+      background: #fff;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card:last-child:nth-child(odd) { max-width: 100%; }
+    }
+
+    @media (max-width: 600px) {
+      .header { flex-direction: column; align-items: flex-start; }
+      .header-right { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+
+    @media (max-width: 500px) {
+      .fork { grid-template-columns: 1fr; width: 100%; }
+      #view-landing.active { padding: 12px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -233,26 +620,392 @@
     }
   </style>
 </head>
-<body>
+<body class="is-landing">
   <canvas id="webgl-bg"></canvas>
 
-  <div class="landing">
+  <!-- ===== LANDING ===== -->
+  <div id="view-landing" class="view active first-load">
     <nav class="fork">
-      <a href="writing.html" class="fork-block">
+      <a href="#writing" class="fork-block">
         <span class="fork-label">WRITING</span>
         <span class="fork-count">11 TRANSMISSIONS</span>
       </a>
-      <a href="work.html" class="fork-block">
+      <a href="#work" class="fork-block">
         <span class="fork-label">WORK</span>
         <span class="fork-count">5 PROJECTS</span>
       </a>
     </nav>
+    <span class="byline">BY SHADRACK ANNOR</span>
+    <span class="edge">BROWN UNIVERSITY / COMPUTER SCIENCE & RELIGIOUS STUDIES '27</span>
   </div>
 
-  <span class="byline">BY SHADRACK ANNOR</span>
-  <span class="edge">BROWN UNIVERSITY / COMPUTER SCIENCE & RELIGIOUS STUDIES '27</span>
+  <!-- ===== WRITING ===== -->
+  <div id="view-writing" class="view">
+    <div class="container container-narrow">
+      <header class="header">
+        <a href="#" class="header-home">SHADRACK ANNOR</a>
+        <nav class="header-nav">
+          <a href="#writing" class="active">WRITING</a>
+          <a href="#work">WORK</a>
+        </nav>
+      </header>
 
-  <!-- WASM Particle Engine -->
+      <section class="writing-section">
+        <div class="section-label">
+          <span>TRANSMISSIONS</span>
+          <span class="count">11</span>
+        </div>
+        <div class="writing-list">
+          <a href="transmissions/0001.html" class="writing-entry">
+            <span class="writing-title">DRESSED IN SOMEONE ELSE'S MEMORY</span>
+            <span class="writing-date">2025.04.06</span>
+          </a>
+          <a href="transmissions/0002.html" class="writing-entry">
+            <span class="writing-title">NO SHARED WORLD</span>
+            <span class="writing-date">2025.04.07</span>
+          </a>
+          <a href="transmissions/0003.html" class="writing-entry">
+            <span class="writing-title">SECONDARY LIVES</span>
+            <span class="writing-date">2025.04.07</span>
+          </a>
+          <a href="transmissions/0004.html" class="writing-entry">
+            <span class="writing-title">MISREAD BY DESIGN</span>
+            <span class="writing-date">2025.04.07</span>
+          </a>
+          <a href="transmissions/0005.html" class="writing-entry">
+            <span class="writing-title">ATTENTION IS ARCHITECTURE</span>
+            <span class="writing-date">2025.04.07</span>
+          </a>
+          <a href="transmissions/0006.html" class="writing-entry">
+            <span class="writing-title">LOOPS AND OVERLAYS</span>
+            <span class="writing-date">2025.04.08</span>
+          </a>
+          <a href="transmissions/0007.html" class="writing-entry">
+            <span class="writing-title">SATAN IS OF GOD</span>
+            <span class="writing-date">2025.04.08</span>
+          </a>
+          <a href="transmissions/0008.html" class="writing-entry">
+            <span class="writing-title">SATAN ISN'T IN THE SOUND</span>
+            <span class="writing-date">2025.04.12</span>
+          </a>
+          <a href="transmissions/0009.html" class="writing-entry">
+            <span class="writing-title">TRUTH LOOPS</span>
+            <span class="writing-date">2025.04.17</span>
+          </a>
+          <a href="transmissions/0010.html" class="writing-entry">
+            <span class="writing-title">LOVE IS IN PRESENCE</span>
+            <span class="writing-date">2025.04.19</span>
+          </a>
+          <a href="transmissions/0011.html" class="writing-entry">
+            <span class="writing-title">THE PROOF IS YOU</span>
+            <span class="writing-date">2025.04.19</span>
+          </a>
+        </div>
+        <p class="writing-origin">ORIGINALLY PUBLISHED AT <a href="https://nobodyisspeakingtherightlanguage.com" target="_blank">NOBODYISSPEAKINGTHERIGHTLANGUAGE.COM</a></p>
+      </section>
+
+      <div class="divider"></div>
+      <footer class="footer">
+        <div class="footer-top">
+          <p class="footer-tagline">POLARITY LAB</p>
+          <div class="footer-links">
+            <a href="mailto:shadrack@brown.edu">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              EMAIL
+            </a>
+            <a href="https://github.com/sh6drack" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GITHUB
+            </a>
+            <a href="https://www.linkedin.com/in/shadrack-annor-38a627235/" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LINKEDIN
+            </a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="footer-copyright">BROWN UNIVERSITY '27 / CS &amp; RELIGIOUS STUDIES</span>
+          <span class="footer-copyright">2026</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ===== WORK ===== -->
+  <div id="view-work" class="view">
+    <div class="container container-wide">
+      <header class="header">
+        <a href="#" class="header-home">SHADRACK ANNOR</a>
+        <div class="header-right">
+          <nav class="header-nav">
+            <a href="#writing">WRITING</a>
+            <a href="#work" class="active">WORK</a>
+          </nav>
+          <div>
+            <form class="newsletter-form" id="newsletter-form">
+              <input type="email" name="email" placeholder="EMAIL" required>
+              <button type="submit" aria-label="Subscribe"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </form>
+            <p id="newsletter-message" class="form-message"></p>
+          </div>
+        </div>
+      </header>
+
+      <section class="projects-section">
+        <div class="section-label">
+          <span>SELECTED WORK</span>
+          <span class="count">5 PROJECTS</span>
+        </div>
+        <div class="projects-grid">
+          <a href="https://polaritygps.com" target="_blank" class="project-card polarity">
+            <div class="project-thumbnail">
+              <div class="orbital-animation">
+                <svg viewBox="0 0 100 100">
+                  <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#4ECDC4" stroke-width="1.5" transform="rotate(-60 50 50)" opacity="0.7"/>
+                  <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#FFA07A" stroke-width="1.5" transform="rotate(60 50 50)" opacity="0.7"/>
+                  <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#BB8FCE" stroke-width="1.5" opacity="0.7"/>
+                  <circle cx="50" cy="50" r="6" fill="#4ECDC4"/>
+                  <circle cx="70" cy="25" r="2.5" fill="#4ECDC4"/>
+                  <circle cx="30" cy="25" r="2.5" fill="#FFA07A"/>
+                  <circle cx="90" cy="50" r="2.5" fill="#BB8FCE"/>
+                </svg>
+                <span class="orbital-text">POLARITY</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="card-type">REFLECTIVE TECHNOLOGY</span>
+              <h3>POLARITY</h3>
+              <p>Co-Founder. The first AI that reflects you. Interdisciplinary research laboratory.</p>
+              <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+            </div>
+          </a>
+
+          <a href="https://wax-feed.com" target="_blank" class="project-card">
+            <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center;">
+              <img src="waxfeed-disc-only.svg" alt="WaxFeed" style="width: 38%; height: auto; animation: spin 8s linear infinite;">
+            </div>
+            <div class="project-info">
+              <span class="card-type">SOCIAL PLATFORM</span>
+              <h3>WAXFEED</h3>
+              <p>Letterboxd for albums. Social music discovery.</p>
+              <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+            </div>
+          </a>
+
+          <a href="https://www.youtube.com/channel/UCEdsKG3TMPbJavCJvYyUCHA" target="_blank" class="project-card" id="avdp-card">
+            <div class="project-thumbnail youtube-thumbnail" id="avdp-thumbnail">
+              <img src="" alt="Latest AVDP Episode" id="avdp-img" style="display: none;">
+              <div class="play-button"></div>
+              <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #080808;">
+                <span style="opacity: 0.15; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">LOADING...</span>
+              </div>
+            </div>
+            <div class="project-info">
+              <span class="card-type">PODCAST</span>
+              <h3 id="avdp-title">A VERY DISTANT PERSPECTIVE</h3>
+              <p>Conversations that matter. Experimental interview format.</p>
+              <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+            </div>
+          </a>
+
+          <a href="https://youtube.com/playlist?list=PLDbiHgLJCldhYCkz-76FjazHXO06Egv-b" target="_blank" class="project-card">
+            <div class="project-thumbnail youtube-thumbnail">
+              <img src="https://img.youtube.com/vi/532SNDV2bWI/maxresdefault.jpg" alt="360 Sound DJ Sets" onerror="this.src='https://img.youtube.com/vi/532SNDV2bWI/hqdefault.jpg'">
+              <div class="play-button"></div>
+            </div>
+            <div class="project-info">
+              <span class="card-type">VIDEO SERIES</span>
+              <h3>360 SOUND DJ SETS</h3>
+              <p>DJ sets from scenic locations across the globe.</p>
+              <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+            </div>
+          </a>
+
+          <a href="https://linktr.ee/wbru360" target="_blank" class="project-card">
+            <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center; padding: 40px;">
+              <img src="WBRU360-TESTSOHNE kursiv white transparent.png" alt="WBRU 360" style="width: 100%; height: auto; max-width: 260px; opacity: 0.85;">
+            </div>
+            <div class="project-info">
+              <span class="card-type">CREATIVE DIRECTION</span>
+              <h3>WBRU 360</h3>
+              <p>Transforming college radio into multimedia studio. (June 2025 to February 2026)</p>
+              <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+      <footer class="footer">
+        <div class="footer-top">
+          <p class="footer-tagline">POLARITY LAB</p>
+          <div class="footer-links">
+            <a href="mailto:shadrack@brown.edu">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              EMAIL
+            </a>
+            <a href="https://github.com/sh6drack" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GITHUB
+            </a>
+            <a href="https://www.linkedin.com/in/shadrack-annor-38a627235/" target="_blank">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              LINKEDIN
+            </a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="footer-copyright">BROWN UNIVERSITY '27 / CS &amp; RELIGIOUS STUDIES</span>
+          <span class="footer-copyright">2026</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ===== ROUTER ===== -->
+  <script>
+    (function() {
+      function navigate(hash) {
+        var views = document.querySelectorAll('.view');
+        for (var i = 0; i < views.length; i++) views[i].classList.remove('active');
+
+        var view, title;
+        if (hash === '#writing') {
+          view = 'view-writing';
+          title = 'Writing \u2014 Shadrack Annor';
+        } else if (hash === '#work') {
+          view = 'view-work';
+          title = 'Work \u2014 Shadrack Annor';
+        } else {
+          view = 'view-landing';
+          title = 'Shadrack Annor';
+        }
+
+        document.getElementById(view).classList.add('active');
+        document.body.className = (view === 'view-landing') ? 'is-landing' : 'is-content';
+        document.title = title;
+        window.scrollTo(0, 0);
+      }
+
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+        var href = link.getAttribute('href');
+        if (href === '#writing' || href === '#work') {
+          e.preventDefault();
+          history.pushState(null, '', '/' + href);
+          navigate(href);
+        } else if (href === '#') {
+          e.preventDefault();
+          history.pushState(null, '', '/');
+          navigate('');
+        }
+      });
+
+      window.addEventListener('popstate', function() {
+        navigate(window.location.hash);
+      });
+
+      // Initial route
+      navigate(window.location.hash);
+
+      // Remove landing intro animations after they complete
+      setTimeout(function() {
+        var landing = document.getElementById('view-landing');
+        if (landing) landing.classList.remove('first-load');
+      }, 3000);
+    })();
+  </script>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <script>
+    (function() {
+      var form = document.getElementById('newsletter-form');
+      var msg = document.getElementById('newsletter-message');
+      if (!form) return;
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var email = form.email.value;
+        var btn = form.querySelector('button');
+        btn.textContent = '...';
+        btn.disabled = true;
+        try {
+          var res = await fetch('https://formspree.io/f/mrezbbwk', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: 'shadrack-portfolio' })
+          });
+          if (res.ok) {
+            msg.textContent = 'ADDED';
+            msg.style.color = '#4ECDC4';
+            msg.classList.add('visible');
+            form.email.value = '';
+          } else { throw new Error(); }
+        } catch (err) {
+          msg.textContent = 'ERROR. TRY AGAIN.';
+          msg.style.color = '#FFA07A';
+          msg.classList.add('visible');
+        }
+        btn.textContent = '';
+        var arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        arrow.setAttribute('width', '14');
+        arrow.setAttribute('height', '14');
+        arrow.setAttribute('viewBox', '0 0 24 24');
+        arrow.setAttribute('fill', 'none');
+        arrow.setAttribute('stroke', 'currentColor');
+        arrow.setAttribute('stroke-width', '2.5');
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', 'M5 12h14M12 5l7 7-7 7');
+        arrow.appendChild(path);
+        btn.appendChild(arrow);
+        btn.disabled = false;
+        setTimeout(function() { msg.classList.remove('visible'); }, 3000);
+      });
+    })();
+  </script>
+
+  <!-- ===== AVDP YOUTUBE ===== -->
+  <script>
+    (function() {
+      async function fetchLatestVideo() {
+        var channelId = 'UCEdsKG3TMPbJavCJvYyUCHA';
+        var thumbnail = document.getElementById('avdp-thumbnail');
+        var img = document.getElementById('avdp-img');
+        var card = document.getElementById('avdp-card');
+        try {
+          var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+          var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl);
+          var response = await fetch(proxyUrl);
+          if (!response.ok) return;
+          var text = await response.text();
+          var parser = new DOMParser();
+          var xml = parser.parseFromString(text, 'text/xml');
+          var videoIdEl = xml.querySelector('yt\\:videoId') || xml.querySelector('videoId');
+          var videoId = null;
+          if (videoIdEl) {
+            videoId = videoIdEl.textContent;
+          } else {
+            var link = xml.querySelector('entry link[href]');
+            if (link) {
+              var match = link.getAttribute('href').match(/[?&]v=([^&]+)/);
+              if (match) videoId = match[1];
+            }
+          }
+          if (videoId) {
+            img.src = 'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg';
+            img.style.display = 'block';
+            img.onerror = function() { img.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg'; };
+            card.href = 'https://www.youtube.com/watch?v=' + videoId;
+            var loadingDiv = thumbnail.querySelector('div:last-child');
+            if (loadingDiv && loadingDiv.style) loadingDiv.style.display = 'none';
+          }
+        } catch (err) { console.log('Video fetch failed:', err); }
+      }
+      fetchLatestVideo();
+    })();
+  </script>
+
+  <!-- ===== WASM PARTICLE ENGINE ===== -->
   <script type="module">
     import init, { ParticleSystem } from './wasm-pkg/wasm_particles.js';
 
@@ -333,6 +1086,7 @@
       document.addEventListener('mouseleave', function() { mouse.active = false; });
 
       var scrollY = 0;
+      window.addEventListener('scroll', function() { scrollY = window.scrollY; }, { passive: true });
 
       function resize() {
         var dpr = Math.min(window.devicePixelRatio, 2);
