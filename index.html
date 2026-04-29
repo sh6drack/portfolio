@@ -140,8 +140,21 @@
     }
 
     .fork-block:hover { background: rgba(255,255,255,0.05); }
-    .fork-block:hover .fork-label { color: #fff; letter-spacing: 0.08em; }
+    .fork-block:hover .fork-label {
+      color: #fff;
+      letter-spacing: 0.08em;
+      animation: fork-tune 1.2s ease-in-out infinite;
+    }
     .fork-block:hover .fork-count { color: rgba(255,255,255,0.3); }
+
+    /* Subtle horizontal modulation on the active fork label — feels like
+       the line is settling onto its track. No labels, no readouts; pure
+       motion. */
+    @keyframes fork-tune {
+      0%, 100% { transform: translateX(0); }
+      48%      { transform: translateX(-0.5px); }
+      52%      { transform: translateX(0.5px); }
+    }
 
     .fork-label {
       font-size: clamp(20px, 3.5vw, 36px);
@@ -342,6 +355,17 @@
       opacity: 0;
       transform: translateY(12px);
       animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    .section-subtitle {
+      margin: -8px 0 32px 0;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.32);
+      font-style: italic;
+      max-width: 56ch;
+      line-height: 1.5;
     }
 
     .writing-list { display: flex; flex-direction: column; gap: 0; }
@@ -619,6 +643,182 @@
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
+    /* ===== CRT channel change ===== */
+    /* Triggered on every hash-routed view swap. The outgoing view collapses
+       vertically into a horizontal line, then a dot, then darkness. The
+       incoming view powers up via a vertical sweep. Pure CSS, no JS-driven
+       interpolation. ~520ms total. */
+    @keyframes crt-power-down {
+      0%   { transform: scaleY(1) scaleX(1); opacity: 1; }
+      55%  { transform: scaleY(0.005) scaleX(1); opacity: 1; filter: brightness(2); }
+      75%  { transform: scaleY(0.005) scaleX(0.05); opacity: 0.9; filter: brightness(2.4); }
+      100% { transform: scaleY(0.005) scaleX(0); opacity: 0; }
+    }
+    @keyframes crt-power-up {
+      0%   { transform: scaleY(0.005) scaleX(0); opacity: 0; filter: brightness(2.4); }
+      30%  { transform: scaleY(0.005) scaleX(1); opacity: 1; filter: brightness(2); }
+      100% { transform: scaleY(1) scaleX(1); opacity: 1; filter: brightness(1); }
+    }
+    body.is-changing-channel #view-landing.active,
+    body.is-changing-channel #view-transmissions.active,
+    body.is-changing-channel #view-work.active {
+      animation: crt-power-down 220ms cubic-bezier(0.7, 0, 0.84, 0) forwards;
+      transform-origin: center center;
+    }
+    body.is-arriving #view-landing.active,
+    body.is-arriving #view-transmissions.active,
+    body.is-arriving #view-work.active {
+      animation: crt-power-up 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform-origin: center center;
+    }
+    /* Brief horizontal scanline that flares across the screen on every
+       channel change. Sits above content, mix-blended for a soft glow. */
+    .channel-scanline {
+      position: fixed;
+      left: 0; right: 0;
+      top: 50%;
+      height: 1px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 18px rgba(255,255,255,0.4);
+      transform: scaleX(0);
+      transform-origin: left center;
+      pointer-events: none;
+      z-index: 60;
+      mix-blend-mode: screen;
+      opacity: 0;
+    }
+    body.is-changing-channel .channel-scanline {
+      animation: scan-flare 520ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes scan-flare {
+      0%   { transform: scaleX(0); opacity: 0; }
+      30%  { transform: scaleX(1); opacity: 1; }
+      70%  { transform: scaleX(1); opacity: 1; }
+      100% { transform: scaleX(1) scaleY(0); opacity: 0; }
+    }
+
+    /* ===== Particle dimming for transmissions room ===== */
+    /* The reading room runs the canvas at low opacity so the writing has
+       silence around it. Restored when leaving. */
+    body.in-transmissions #webgl-bg {
+      opacity: 0.3;
+      transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    body:not(.in-transmissions) #webgl-bg {
+      opacity: 1;
+      transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===== Work room: scroll-snapped broadcast panels ===== */
+    #view-work.active .container.container-wide {
+      max-width: none;
+      padding: 0;
+    }
+    #view-work.active .header {
+      padding: clamp(20px, 3vw, 32px) clamp(20px, 5vw, 60px);
+    }
+    #view-work .projects-section { animation: none; opacity: 1; transform: none; }
+    #view-work .projects-grid {
+      display: block;
+      gap: 0;
+      scroll-snap-type: y mandatory;
+    }
+    #view-work .project-card {
+      grid-column: auto !important;
+      max-width: none !important;
+      justify-self: stretch !important;
+      scroll-snap-align: start;
+      min-height: 92vh;
+      min-height: 92dvh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      animation: none;
+      opacity: 1;
+      transform: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: #04060c;
+    }
+    #view-work .project-card:last-child { border-bottom: none; }
+    #view-work .project-card:hover { background: #07090f; }
+    #view-work .project-thumbnail {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 60vh;
+      min-height: 60dvh;
+    }
+    #view-work .project-card.polarity .polarity-wordmark { width: 56%; }
+    #view-work .project-info {
+      padding: clamp(20px, 3vw, 32px) clamp(20px, 5vw, 60px);
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: clamp(16px, 3vw, 32px);
+      align-items: center;
+    }
+    #view-work .project-info .card-type {
+      grid-column: 1;
+      margin: 0;
+      align-self: center;
+    }
+    #view-work .project-info h3 {
+      grid-column: 2;
+      margin: 0;
+      font-size: clamp(28px, 4.5vw, 56px);
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+    #view-work .project-info p {
+      grid-column: 2;
+      grid-row: 2;
+      max-width: 60ch;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    #view-work .card-arrow {
+      grid-column: 3;
+      position: static;
+      transform: none;
+      opacity: 0.4;
+      align-self: center;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    #view-work .project-card:hover .card-arrow {
+      opacity: 1;
+      transform: translateX(6px);
+    }
+    @media (max-width: 720px) {
+      #view-work .project-card { min-height: 80vh; min-height: 80dvh; }
+      #view-work .project-info {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      #view-work .project-info .card-type,
+      #view-work .project-info h3,
+      #view-work .project-info p {
+        grid-column: 1;
+      }
+      #view-work .card-arrow { display: none; }
+    }
+
+    /* WaxFeed: rotating disc gets bigger + slower in panel mode */
+    #view-work .project-card[href*="wax-feed"] .project-thumbnail img {
+      width: 32% !important;
+      animation-duration: 18s !important;
+    }
+    /* AVDP: soft chromatic warble on the YouTube thumbnail */
+    #view-work .project-card .youtube-thumbnail img {
+      animation: avdp-warble 6s ease-in-out infinite;
+      will-change: filter, transform;
+    }
+    @keyframes avdp-warble {
+      0%, 100% { filter: none; transform: translateX(0); }
+      35%      { filter: hue-rotate(-3deg) blur(0.4px); transform: translateX(-1px); }
+      36%      { filter: hue-rotate(3deg) blur(0.4px);  transform: translateX(1px); }
+      37%      { filter: none; transform: translateX(0); }
+      78%      { filter: hue-rotate(-2deg); transform: translateX(-0.5px); }
+      79%      { filter: hue-rotate(2deg);  transform: translateX(0.5px); }
+      80%      { filter: none; transform: translateX(0); }
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .projects-grid { grid-template-columns: 1fr; }
@@ -679,6 +879,7 @@
           <span>A SERIES OF TRANSMISSIONS</span>
           <span class="count">11</span>
         </div>
+        <p class="section-subtitle">on consciousness, identity, and perception</p>
         <div class="writing-list">
           <a href="transmissions/0001.html" class="writing-entry">
             <span class="writing-title">DRESSED IN SOMEONE ELSE'S MEMORY</span>
@@ -882,10 +1083,33 @@
   <!-- ===== ROUTER ===== -->
   <script>
     (function() {
-      function navigate(hash) {
+      // Inject the channel-scanline DOM node once. Triggered by CSS via the
+      // is-changing-channel body class. Living outside the views so it
+      // never gets ripped out on a swap.
+      var scanline = document.createElement('div');
+      scanline.className = 'channel-scanline';
+      document.body.appendChild(scanline);
+
+      // resolveBodyClass keeps the existing semantic body classes
+      // (is-landing, is-content) and adds the in-transmissions hook so the
+      // particle canvas can dim while the reading room is open.
+      function resolveBodyClass(view) {
+        var base = (view === 'view-landing') ? 'is-landing' : 'is-content';
+        if (view === 'view-transmissions') base += ' in-transmissions';
+        return base;
+      }
+
+      function applyView(view, title) {
         var views = document.querySelectorAll('.view');
         for (var i = 0; i < views.length; i++) views[i].classList.remove('active');
+        document.getElementById(view).classList.add('active');
+        document.body.className = resolveBodyClass(view);
+        document.title = title;
+        window.scrollTo(0, 0);
+      }
 
+      function navigate(hash, opts) {
+        opts = opts || {};
         var view, title;
         if (hash === '#transmissions') {
           view = 'view-transmissions';
@@ -898,10 +1122,28 @@
           title = 'Shadrack Annor';
         }
 
-        document.getElementById(view).classList.add('active');
-        document.body.className = (view === 'view-landing') ? 'is-landing' : 'is-content';
-        document.title = title;
-        window.scrollTo(0, 0);
+        // First load skips the CRT theatrics — there's nothing to leave from.
+        if (opts.initial || document.body.classList.contains('is-landing') === false && document.querySelector('.view.active') === null) {
+          applyView(view, title);
+          return;
+        }
+
+        var current = document.querySelector('.view.active');
+        var sameView = current && current.id === view;
+        if (sameView) return;
+
+        // Channel change: power-down the current view, swap, power-up.
+        document.body.classList.add('is-changing-channel');
+        var DOWN_MS = 220;
+        var UP_MS = 300;
+        setTimeout(function() {
+          applyView(view, title);
+          document.body.classList.remove('is-changing-channel');
+          document.body.classList.add('is-arriving');
+          setTimeout(function() {
+            document.body.classList.remove('is-arriving');
+          }, UP_MS + 40);
+        }, DOWN_MS);
       }
 
       document.addEventListener('click', function(e) {
@@ -923,8 +1165,8 @@
         navigate(window.location.hash);
       });
 
-      // Initial route
-      navigate(window.location.hash);
+      // Initial route — no transition theatrics for the first paint.
+      navigate(window.location.hash, { initial: true });
 
       // Remove landing intro animations after they complete
       setTimeout(function() {
