@@ -709,92 +709,89 @@
       transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ===== Cards, refined =====
-       The original cards were opaque blocks that hid the particle canvas
-       behind them. The fix: let the canvas breathe through the card body
-       while keeping the thumbnail block solid (visuals need a stable
-       backdrop). A thin scanline wipe on hover, a hairline border that
-       brightens on attention, and a top-edge accent that animates in. */
+    /* ===== Project cards =====
+       Most projects render their logo straight onto the particle canvas
+       — no card frame, no thumbnail backdrop, no border. The transparent
+       PNG/SVG of each mark is the entire card, floating in the field.
+       Only the DJ sets keep a real card (it's a video thumbnail, needs
+       a stable surface).
 
+       Variant chosen via the .transparent class on the project-card. */
+
+    /* Default card (DJ sets etc) — translucent, particles drift through
+       behind it but the thumbnail block stays solid for the photo. */
     #view-work .project-card {
-      background: rgba(8, 10, 16, 0.55);
+      background: rgba(8, 10, 16, 0.45);
       backdrop-filter: blur(2px);
       -webkit-backdrop-filter: blur(2px);
-      border: 1px solid rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
       transition:
         background 0.3s ease,
         border-color 0.3s ease,
         transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #view-work .project-card:hover {
-      background: rgba(14, 16, 24, 0.65);
+      background: rgba(14, 16, 24, 0.6);
       border-color: rgba(255,255,255,0.18);
       transform: translateY(-2px);
     }
-
-    /* Card top edge: a 1px line that wipes in left-to-right on hover.
-       Different from the polarity-card scanline (which lives inside the
-       thumbnail) — this one is on the card frame itself. */
-    #view-work .project-card::before {
-      content: "";
-      position: absolute;
-      left: 0; top: 0;
-      height: 1px;
-      width: 100%;
-      background: linear-gradient(
-        90deg,
-        transparent 0%,
-        rgba(255,255,255,0.85) 50%,
-        transparent 100%
-      );
-      transform: scaleX(0);
-      transform-origin: left center;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      pointer-events: none;
-      z-index: 4;
-    }
-    #view-work .project-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    /* The thumbnail backdrop stays solid — visuals (TV-glitch, vinyl
-       spin, VHS warble) need a stable surface, not a translucent one
-       fighting the particles behind it. */
-    #view-work .project-thumbnail {
+    #view-work .project-card:not(.transparent) .project-thumbnail {
       background: rgba(4, 6, 12, 0.92);
     }
 
-    /* Polarity — already dialed; just slightly larger wordmark inside the
-       card so the glitch reads. */
-    #view-work .project-card.polarity .polarity-wordmark {
-      width: 82%;
+    /* Transparent variant — chrome stripped, the logo is the card. The
+       logo SVG/PNG floats directly on the particle canvas. */
+    #view-work .project-card.transparent {
+      background: transparent !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border: none !important;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #view-work .project-card.transparent:hover {
+      background: transparent !important;
+      transform: translateY(-2px);
+    }
+    #view-work .project-card.transparent .project-thumbnail {
+      background: transparent !important;
+      overflow: visible;
+    }
+    #view-work .project-card.transparent .project-thumbnail::after {
+      display: none;
+    }
+    #view-work .project-card.transparent .project-thumbnail img,
+    #view-work .project-card.transparent .polarity-wordmark {
+      transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #view-work .project-card.transparent:hover .project-thumbnail img,
+    #view-work .project-card.transparent:hover .polarity-wordmark {
+      filter: drop-shadow(0 0 18px rgba(255,255,255,0.18));
     }
 
-    /* WaxFeed disc — slow it down so it stops feeling like a fidget
-       spinner. */
-    #view-work .project-card[href*="wax-feed"] .project-thumbnail img {
+    /* Per-mark sizing inside the transparent variant. Marks dominate the
+       thumbnail box; no card frame to push back against. */
+    #view-work .project-card.transparent.polarity .polarity-wordmark {
+      width: 88%;
+    }
+    #view-work .project-card.transparent[href*="wax-feed"] .project-thumbnail img {
+      width: 44% !important;
       animation-duration: 14s !important;
     }
-
-    /* AVDP — soft VHS chromatic warble on the YouTube thumbnail. Hits
-       on irregular keyframes so it reads as broadcast interference, not
-       a metronome. */
-    #view-work .project-card .youtube-thumbnail img {
-      animation: avdp-warble 7s ease-in-out infinite;
-      will-change: filter, transform;
+    #view-work .project-card.transparent .avdp-mark {
+      width: 56%;
+      height: auto;
+      max-width: 260px;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.04));
     }
-    @keyframes avdp-warble {
-      0%, 100% { filter: none; transform: translateX(0); }
-      35%      { filter: hue-rotate(-3deg) blur(0.4px); transform: translateX(-1px); }
-      36%      { filter: hue-rotate(3deg) blur(0.4px);  transform: translateX(1px); }
-      37%      { filter: none; transform: translateX(0); }
-      78%      { filter: hue-rotate(-2deg); transform: translateX(-0.5px); }
-      79%      { filter: hue-rotate(2deg);  transform: translateX(0.5px); }
-      80%      { filter: none; transform: translateX(0); }
+    #view-work .project-card.transparent .wbru-mark {
+      width: 70%;
+      height: auto;
+      max-width: 280px;
+      opacity: 0.88;
     }
 
-    /* Project info: keep the existing typographic hierarchy, but lift
-       the title color on hover so attention rewards intent. */
+    /* Project info: title brightens on hover. Spacing tightens slightly
+       so attention rewards intent without a "click me" arrow shouting. */
     #view-work .project-info { position: relative; }
     #view-work .project-card:hover .project-info h3 {
       color: #fff;
@@ -965,7 +962,7 @@
           <span class="count">5 PROJECTS</span>
         </div>
         <div class="projects-grid">
-          <a href="https://polarity-lab.com" target="_blank" class="project-card polarity">
+          <a href="https://polarity-lab.com" target="_blank" class="project-card polarity transparent">
             <div class="project-thumbnail">
               <img src="polarity-wordmark.svg" alt="POLARITY" class="polarity-wordmark">
             </div>
@@ -977,9 +974,9 @@
             </div>
           </a>
 
-          <a href="https://wax-feed.com" target="_blank" class="project-card">
-            <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center;">
-              <img src="waxfeed-disc-only.svg" alt="WaxFeed" style="width: 38%; height: auto; animation: spin 8s linear infinite;">
+          <a href="https://wax-feed.com" target="_blank" class="project-card transparent">
+            <div class="project-thumbnail" style="display: flex; align-items: center; justify-content: center;">
+              <img src="waxfeed-disc-only.svg" alt="WaxFeed" style="width: 44%; height: auto; animation: spin 14s linear infinite;">
             </div>
             <div class="project-info">
               <span class="card-type">SOCIAL PLATFORM</span>
@@ -989,17 +986,13 @@
             </div>
           </a>
 
-          <a href="https://www.youtube.com/channel/UCEdsKG3TMPbJavCJvYyUCHA" target="_blank" class="project-card" id="avdp-card">
-            <div class="project-thumbnail youtube-thumbnail" id="avdp-thumbnail">
-              <img src="" alt="Latest AVDP Episode" id="avdp-img" style="display: none;">
-              <div class="play-button"></div>
-              <div style="display: flex; align-items: center; justify-content: center; height: 100%; background: #080808;">
-                <span style="opacity: 0.15; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">LOADING...</span>
-              </div>
+          <a href="https://linktr.ee/averydistantperspective" target="_blank" class="project-card transparent" id="avdp-card">
+            <div class="project-thumbnail" style="display: flex; align-items: center; justify-content: center;">
+              <img src="avdp-logo.png" alt="A Very Distant Perspective" class="avdp-mark">
             </div>
             <div class="project-info">
               <span class="card-type">PODCAST</span>
-              <h3 id="avdp-title">A VERY DISTANT PERSPECTIVE</h3>
+              <h3>A VERY DISTANT PERSPECTIVE</h3>
               <p>Conversations that matter. Experimental interview format.</p>
               <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
             </div>
@@ -1018,9 +1011,9 @@
             </div>
           </a>
 
-          <a href="https://linktr.ee/wbru360" target="_blank" class="project-card">
-            <div class="project-thumbnail" style="background: #080808; display: flex; align-items: center; justify-content: center; padding: 40px;">
-              <img src="WBRU360-TESTSOHNE kursiv white transparent.png" alt="WBRU 360" style="width: 100%; height: auto; max-width: 260px; opacity: 0.85;">
+          <a href="https://linktr.ee/wbru360" target="_blank" class="project-card transparent">
+            <div class="project-thumbnail" style="display: flex; align-items: center; justify-content: center; padding: 40px;">
+              <img src="WBRU360-TESTSOHNE kursiv white transparent.png" alt="WBRU 360" class="wbru-mark">
             </div>
             <div class="project-info">
               <span class="card-type">CREATIVE DIRECTION</span>
@@ -1203,47 +1196,6 @@
         btn.disabled = false;
         setTimeout(function() { msg.classList.remove('visible'); }, 3000);
       });
-    })();
-  </script>
-
-  <!-- ===== AVDP YOUTUBE ===== -->
-  <script>
-    (function() {
-      async function fetchLatestVideo() {
-        var channelId = 'UCEdsKG3TMPbJavCJvYyUCHA';
-        var thumbnail = document.getElementById('avdp-thumbnail');
-        var img = document.getElementById('avdp-img');
-        var card = document.getElementById('avdp-card');
-        try {
-          var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
-          var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl);
-          var response = await fetch(proxyUrl);
-          if (!response.ok) return;
-          var text = await response.text();
-          var parser = new DOMParser();
-          var xml = parser.parseFromString(text, 'text/xml');
-          var videoIdEl = xml.querySelector('yt\\:videoId') || xml.querySelector('videoId');
-          var videoId = null;
-          if (videoIdEl) {
-            videoId = videoIdEl.textContent;
-          } else {
-            var link = xml.querySelector('entry link[href]');
-            if (link) {
-              var match = link.getAttribute('href').match(/[?&]v=([^&]+)/);
-              if (match) videoId = match[1];
-            }
-          }
-          if (videoId) {
-            img.src = 'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg';
-            img.style.display = 'block';
-            img.onerror = function() { img.src = 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg'; };
-            card.href = 'https://www.youtube.com/watch?v=' + videoId;
-            var loadingDiv = thumbnail.querySelector('div:last-child');
-            if (loadingDiv && loadingDiv.style) loadingDiv.style.display = 'none';
-          }
-        } catch (err) { console.log('Video fetch failed:', err); }
-      }
-      fetchLatestVideo();
     })();
   </script>
 
