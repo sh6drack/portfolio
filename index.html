@@ -62,7 +62,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    body.is-landing { overflow-x: hidden; min-height: 100vh; cursor: crosshair; }
+    body.is-landing { overflow-x: hidden; overflow-y: auto; min-height: 100vh; cursor: crosshair; -webkit-overflow-scrolling: touch; }
     body.is-content { overflow-x: hidden; min-height: 100vh; }
 
     /* ===== GRAIN ===== */
@@ -210,11 +210,11 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1;
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.05);
+      color: rgba(255,255,255,0.32);
       user-select: none;
       white-space: nowrap;
     }
