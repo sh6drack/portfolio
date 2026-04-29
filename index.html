@@ -709,104 +709,78 @@
       transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ===== Work room: scroll-snapped broadcast panels ===== */
-    #view-work.active .container.container-wide {
-      max-width: none;
-      padding: 0;
-    }
-    #view-work.active .header {
-      padding: clamp(20px, 3vw, 32px) clamp(20px, 5vw, 60px);
-    }
-    #view-work .projects-section { animation: none; opacity: 1; transform: none; }
-    #view-work .projects-grid {
-      display: block;
-      gap: 0;
-      scroll-snap-type: y mandatory;
-    }
+    /* ===== Cards, refined =====
+       The original cards were opaque blocks that hid the particle canvas
+       behind them. The fix: let the canvas breathe through the card body
+       while keeping the thumbnail block solid (visuals need a stable
+       backdrop). A thin scanline wipe on hover, a hairline border that
+       brightens on attention, and a top-edge accent that animates in. */
+
     #view-work .project-card {
-      grid-column: auto !important;
-      max-width: none !important;
-      justify-self: stretch !important;
-      scroll-snap-align: start;
-      min-height: 92vh;
-      min-height: 92dvh;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      animation: none;
-      opacity: 1;
-      transform: none;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      background: #04060c;
+      background: rgba(8, 10, 16, 0.55);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      border: 1px solid rgba(255,255,255,0.04);
+      transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    #view-work .project-card:last-child { border-bottom: none; }
-    #view-work .project-card:hover { background: #07090f; }
-    #view-work .project-thumbnail {
-      aspect-ratio: auto;
-      height: 100%;
-      min-height: 60vh;
-      min-height: 60dvh;
-    }
-    #view-work .project-card.polarity .polarity-wordmark { width: 56%; }
-    #view-work .project-info {
-      padding: clamp(20px, 3vw, 32px) clamp(20px, 5vw, 60px);
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: clamp(16px, 3vw, 32px);
-      align-items: center;
-    }
-    #view-work .project-info .card-type {
-      grid-column: 1;
-      margin: 0;
-      align-self: center;
-    }
-    #view-work .project-info h3 {
-      grid-column: 2;
-      margin: 0;
-      font-size: clamp(28px, 4.5vw, 56px);
-      letter-spacing: -0.01em;
-      line-height: 1;
-    }
-    #view-work .project-info p {
-      grid-column: 2;
-      grid-row: 2;
-      max-width: 60ch;
-      font-size: 13px;
-      line-height: 1.6;
-    }
-    #view-work .card-arrow {
-      grid-column: 3;
-      position: static;
-      transform: none;
-      opacity: 0.4;
-      align-self: center;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    #view-work .project-card:hover .card-arrow {
-      opacity: 1;
-      transform: translateX(6px);
-    }
-    @media (max-width: 720px) {
-      #view-work .project-card { min-height: 80vh; min-height: 80dvh; }
-      #view-work .project-info {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-      #view-work .project-info .card-type,
-      #view-work .project-info h3,
-      #view-work .project-info p {
-        grid-column: 1;
-      }
-      #view-work .card-arrow { display: none; }
+    #view-work .project-card:hover {
+      background: rgba(14, 16, 24, 0.65);
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
     }
 
-    /* WaxFeed: rotating disc gets bigger + slower in panel mode */
-    #view-work .project-card[href*="wax-feed"] .project-thumbnail img {
-      width: 32% !important;
-      animation-duration: 18s !important;
+    /* Card top edge: a 1px line that wipes in left-to-right on hover.
+       Different from the polarity-card scanline (which lives inside the
+       thumbnail) — this one is on the card frame itself. */
+    #view-work .project-card::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0;
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.85) 50%,
+        transparent 100%
+      );
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 4;
     }
-    /* AVDP: soft chromatic warble on the YouTube thumbnail */
+    #view-work .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* The thumbnail backdrop stays solid — visuals (TV-glitch, vinyl
+       spin, VHS warble) need a stable surface, not a translucent one
+       fighting the particles behind it. */
+    #view-work .project-thumbnail {
+      background: rgba(4, 6, 12, 0.92);
+    }
+
+    /* Polarity — already dialed; just slightly larger wordmark inside the
+       card so the glitch reads. */
+    #view-work .project-card.polarity .polarity-wordmark {
+      width: 82%;
+    }
+
+    /* WaxFeed disc — slow it down so it stops feeling like a fidget
+       spinner. */
+    #view-work .project-card[href*="wax-feed"] .project-thumbnail img {
+      animation-duration: 14s !important;
+    }
+
+    /* AVDP — soft VHS chromatic warble on the YouTube thumbnail. Hits
+       on irregular keyframes so it reads as broadcast interference, not
+       a metronome. */
     #view-work .project-card .youtube-thumbnail img {
-      animation: avdp-warble 6s ease-in-out infinite;
+      animation: avdp-warble 7s ease-in-out infinite;
       will-change: filter, transform;
     }
     @keyframes avdp-warble {
@@ -817,6 +791,15 @@
       78%      { filter: hue-rotate(-2deg); transform: translateX(-0.5px); }
       79%      { filter: hue-rotate(2deg);  transform: translateX(0.5px); }
       80%      { filter: none; transform: translateX(0); }
+    }
+
+    /* Project info: keep the existing typographic hierarchy, but lift
+       the title color on hover so attention rewards intent. */
+    #view-work .project-info { position: relative; }
+    #view-work .project-card:hover .project-info h3 {
+      color: #fff;
+      letter-spacing: 0.04em;
+      transition: color 0.3s, letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* ===== RESPONSIVE ===== */
