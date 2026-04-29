@@ -506,21 +506,44 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #080808;
+      background: #04060c;
+      position: relative;
+      overflow: hidden;
     }
 
-    .orbital-animation { width: 180px; height: 180px; position: relative; }
-    .orbital-animation svg { width: 100%; height: 100%; animation: spin 25s linear infinite; }
+    /* TV-glitch wordmark from polarity-lab.com brand pack. The vertical
+       bars are baked into the SVG via <pattern>; the scanline drift below
+       layers a faint horizontal sweep on top so the card has motion. */
+    .project-card.polarity .polarity-wordmark {
+      width: 78%;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.05));
+    }
 
-    .orbital-animation .orbital-text {
+    .project-card.polarity .project-thumbnail::after {
+      content: "";
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      opacity: 0.4;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 47%,
+        rgba(255,255,255,0.06) 50%,
+        transparent 53%,
+        transparent 100%
+      );
+      background-size: 100% 240%;
+      animation: polarity-scan 6s linear infinite;
+      z-index: 3;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes polarity-scan {
+      0%   { background-position: 0% -120%; }
+      100% { background-position: 0% 120%; }
     }
 
     .project-info { padding: clamp(16px, 2.5vw, 24px); position: relative; }
@@ -760,18 +783,7 @@
         <div class="projects-grid">
           <a href="https://polarity-lab.com" target="_blank" class="project-card polarity">
             <div class="project-thumbnail">
-              <div class="orbital-animation">
-                <svg viewBox="0 0 100 100">
-                  <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#4ECDC4" stroke-width="1.5" transform="rotate(-60 50 50)" opacity="0.7"/>
-                  <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#FFA07A" stroke-width="1.5" transform="rotate(60 50 50)" opacity="0.7"/>
-                  <ellipse cx="50" cy="50" rx="40" ry="12" fill="none" stroke="#BB8FCE" stroke-width="1.5" opacity="0.7"/>
-                  <circle cx="50" cy="50" r="6" fill="#4ECDC4"/>
-                  <circle cx="70" cy="25" r="2.5" fill="#4ECDC4"/>
-                  <circle cx="30" cy="25" r="2.5" fill="#FFA07A"/>
-                  <circle cx="90" cy="50" r="2.5" fill="#BB8FCE"/>
-                </svg>
-                <span class="orbital-text">POLARITY</span>
-              </div>
+              <img src="polarity-wordmark.svg" alt="POLARITY" class="polarity-wordmark">
             </div>
             <div class="project-info">
               <span class="card-type">RESEARCH LABORATORY</span>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <pattern id="tvbars" width="9" height="240" patternUnits="userSpaceOnUse">
+      <rect width="9" height="240" fill="#FFFFFF"/>
+      <rect x="0" width="1" height="240" fill="#04060c"/>
+    </pattern>
+  </defs>
+  <text x="600" y="120"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-weight="500"
+        font-size="180"
+        letter-spacing="-3.6"
+        fill="url(#tvbars)"
+        text-anchor="middle"
+        dominant-baseline="central">POLARITY</text>
+</svg>
