@@ -827,6 +827,13 @@
       color: #fff;
       user-select: none;
     }
+    /* "POLARITY LAB" is a long all-caps lockup — size it down so both
+       words sit on one line, filling the thumbnail the way "cosmos"
+       does at its own length. */
+    .project-card.polarity .glitch {
+      font-size: clamp(14px, 11cqi, 60px);
+      white-space: nowrap;
+    }
     .project-thumbnail .glitch::before {
       content: attr(data-text);
       position: absolute; inset: 0; pointer-events: none;
@@ -1491,7 +1498,7 @@
 
           <a href="https://polarity-lab.com" target="_blank" class="project-card polarity transparent">
             <div class="project-thumbnail">
-              <div class="glitch" data-text="polarity">polarity</div>
+              <div class="glitch" data-text="POLARITY LAB">POLARITY LAB</div>
             </div>
             <div class="project-info">
               <span class="card-type">RESEARCH LABORATORY</span>
