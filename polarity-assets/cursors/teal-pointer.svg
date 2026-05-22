@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Cursor arrow -->
+  <path d="M4 2 L4 24 L10 18 L16 28 L20 26 L14 16 L22 16 Z"
+        fill="#4ECDC4"
+        stroke="#0A0A0A"
+        stroke-width="1.5"
+        filter="url(#glow)"/>
+</svg>

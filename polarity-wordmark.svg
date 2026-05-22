@@ -1,16 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid meet">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 240" preserveAspectRatio="xMidYMid meet">
   <defs>
-    <pattern id="tvbars" width="9" height="240" patternUnits="userSpaceOnUse">
+    <!-- Slow-drifting bone bars. The base scan-line texture. Pattern
+         transform is animated horizontally so the bars scroll across
+         the wordmark when the SVG is loaded as <img> in any modern
+         browser. SMIL animation runs inside SVG-as-img; CSS keyframes
+         do not, which is why this uses <animateTransform>. -->
+    <pattern id="tvbars" width="9" height="240" patternUnits="userSpaceOnUse" patternTransform="translate(0 0)">
       <rect width="9" height="240" fill="#FFFFFF"/>
       <rect x="0" width="1" height="240" fill="#04060c"/>
+      <animateTransform
+        attributeName="patternTransform"
+        attributeType="XML"
+        type="translate"
+        from="0 0"
+        to="-200 0"
+        dur="5.5s"
+        repeatCount="indefinite"/>
+    </pattern>
+    <!-- Fast-drifting bright bars. Adds the strobing flash on top. -->
+    <pattern id="tvbars-fast" width="11" height="240" patternUnits="userSpaceOnUse" patternTransform="translate(0 0)">
+      <rect x="0" width="1" height="240" fill="#FFFFFF"/>
+      <animateTransform
+        attributeName="patternTransform"
+        attributeType="XML"
+        type="translate"
+        from="0 0"
+        to="200 0"
+        dur="1.7s"
+        repeatCount="indefinite"/>
     </pattern>
   </defs>
-  <text x="600" y="120"
+  <!-- Base layer. Slow bars woven through the type. -->
+  <text x="850" y="120"
         font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
         font-weight="500"
         font-size="180"
         letter-spacing="-3.6"
         fill="url(#tvbars)"
         text-anchor="middle"
-        dominant-baseline="central">POLARITY</text>
+        dominant-baseline="central">POLARITY LAB</text>
+  <!-- Strobe layer. Faster bars at lower opacity, screened over. -->
+  <text x="850" y="120"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-weight="500"
+        font-size="180"
+        letter-spacing="-3.6"
+        fill="url(#tvbars-fast)"
+        text-anchor="middle"
+        dominant-baseline="central"
+        style="mix-blend-mode: screen; opacity: 0.55;">POLARITY LAB</text>
 </svg>

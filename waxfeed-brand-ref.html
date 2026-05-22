@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WAXFEED Brand Reference</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #ededed;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    width: 1200px;
+    height: 1200px;
+    overflow: hidden;
+  }
+
+  .board {
+    width: 1200px;
+    height: 1200px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Header spans full width */
+  .header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #222;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo-text {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+
+  .tagline {
+    font-size: 16px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 500;
+  }
+
+  /* Nav bar mock */
+  .nav-mock {
+    grid-column: 1 / -1;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 0;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-item {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 500;
+  }
+
+  .nav-item.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 2px;
+  }
+
+  .nav-item.purple {
+    color: #9b7bbd;
+  }
+
+  .nav-search {
+    margin-left: auto;
+    background: #111;
+    border: 1px solid #222;
+    color: #888;
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 0;
+    width: 200px;
+  }
+
+  /* Album card */
+  .card {
+    background: #111;
+    border: 1px solid #222;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-cover.alt {
+    background: linear-gradient(135deg, #2d1b4e, #1a0a2e, #0d0520);
+  }
+
+  .card-cover.warm {
+    background: linear-gradient(135deg, #1a1a1a, #2a1515, #1a0a0a);
+  }
+
+  .card-cover-text {
+    font-size: 48px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.08);
+    letter-spacing: -0.03em;
+  }
+
+  .card-info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  .card-artist {
+    font-size: 13px;
+    color: #888;
+  }
+
+  .card-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .stars {
+    color: #9b7bbd;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .rating-num {
+    font-size: 13px;
+    color: #888;
+    font-family: 'SF Mono', Monaco, monospace;
+  }
+
+  /* Review card */
+  .review-card {
+    background: #111;
+    border: 1px solid #222;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9b7bbd, #6b4f8a);
+  }
+
+  .review-user {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .review-time {
+    font-size: 12px;
+    color: #888;
+    margin-left: auto;
+    font-family: 'SF Mono', Monaco, monospace;
+  }
+
+  .review-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #ccc;
+    letter-spacing: 0.01em;
+  }
+
+  .review-album {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #1a1a1a;
+    border: 1px solid #222;
+  }
+
+  .review-album-art {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #2d1b4e, #1a0a2e);
+    flex-shrink: 0;
+  }
+
+  .review-album-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .review-album-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .review-album-artist {
+    font-size: 12px;
+    color: #888;
+  }
+
+  .reactions {
+    display: flex;
+    gap: 16px;
+    margin-top: auto;
+  }
+
+  .reaction {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Color palette strip */
+  .palette {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .swatch-color {
+    width: 64px;
+    height: 64px;
+    border: 1px solid #333;
+  }
+
+  .swatch-label {
+    font-size: 11px;
+    color: #888;
+    font-family: 'SF Mono', Monaco, monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* Feed type badges */
+  .badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+
+  .badge {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border: 1px solid;
+    font-weight: 600;
+  }
+
+  .badge.review { color: #fff; border-color: #fff; }
+  .badge.release { color: #22d3ee; border-color: #22d3ee; }
+  .badge.hottake { color: #ef4444; border-color: #ef4444; }
+  .badge.news { color: #a3a3a3; border-color: #a3a3a3; }
+  .badge.daily { color: #00ff88; border-color: #00ff88; }
+  .badge.radio { color: #22d3ee; border-color: #22d3ee; }
+
+  /* TasteID section */
+  .tasteid {
+    grid-column: 1 / -1;
+    background: #111;
+    border: 1px solid #222;
+    padding: 24px;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .tasteid-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #9b7bbd;
+    font-weight: 600;
+  }
+
+  .tasteid-tier {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  .tasteid-bar {
+    flex: 1;
+    height: 4px;
+    background: #222;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tasteid-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 62%;
+    background: linear-gradient(90deg, #9b7bbd, #c4a8e0);
+  }
+
+  .tasteid-count {
+    font-size: 14px;
+    color: #888;
+    font-family: 'SF Mono', Monaco, monospace;
+  }
+
+  /* Bottom section with genre tags + purple accent */
+  .bottom-section {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .genre-cloud {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-content: flex-start;
+  }
+
+  .genre-tag {
+    font-size: 12px;
+    padding: 6px 14px;
+    border: 1px solid #333;
+    color: #ccc;
+    letter-spacing: 0.05em;
+  }
+
+  .genre-tag.highlight {
+    border-color: #9b7bbd;
+    color: #9b7bbd;
+  }
+
+  .brand-mark {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-left: 1px solid #222;
+    padding-left: 24px;
+  }
+
+  .brand-mark-text {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  .purple-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #9b7bbd;
+  }
+</style>
+</head>
+<body>
+  <div class="board">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-area">
+        <div class="logo-text">WAXFEED</div>
+        <div class="tagline">Know your music.</div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:center;">
+        <div class="badges">
+          <div class="badge review">Review</div>
+          <div class="badge release">Release</div>
+          <div class="badge hottake">Hot Take</div>
+          <div class="badge news">News</div>
+          <div class="badge daily">Daily</div>
+          <div class="badge radio">360</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="nav-mock">
+      <span class="nav-item active">Feed</span>
+      <span class="nav-item">Discover</span>
+      <span class="nav-item">DJs</span>
+      <span class="nav-item purple">360</span>
+      <div class="nav-search">Search albums, artists...</div>
+    </div>
+
+    <!-- Album Cards Row -->
+    <div class="card">
+      <div class="card-cover">
+        <div class="card-cover-text">LP</div>
+      </div>
+      <div class="card-info">
+        <div class="card-title">Chromakopia</div>
+        <div class="card-artist">Tyler, The Creator</div>
+        <div class="card-rating">
+          <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+          <span class="rating-num">4.2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-header">
+        <div class="avatar"></div>
+        <div class="review-user">musichead_23</div>
+        <div class="review-time">2h ago</div>
+      </div>
+      <div class="review-text">
+        The production on this thing is immaculate. Every track feels like its own universe, and the transitions are seamless. Been on repeat all week.
+      </div>
+      <div class="review-album">
+        <div class="review-album-art"></div>
+        <div class="review-album-info">
+          <div class="review-album-title">GNX</div>
+          <div class="review-album-artist">Kendrick Lamar</div>
+        </div>
+      </div>
+      <div class="reactions">
+        <span class="reaction">&#9829; 24</span>
+        <span class="reaction">&#128172; 8</span>
+        <span class="reaction">&#128257; 3</span>
+      </div>
+    </div>
+
+    <!-- TasteID bar -->
+    <div class="tasteid">
+      <div>
+        <div class="tasteid-label">TasteID</div>
+        <div class="tasteid-tier">Connoisseur</div>
+      </div>
+      <div class="tasteid-bar">
+        <div class="tasteid-fill"></div>
+      </div>
+      <div class="tasteid-count">62 / 100</div>
+    </div>
+
+    <!-- Bottom: genres + brand mark -->
+    <div class="bottom-section">
+      <div class="genre-cloud">
+        <span class="genre-tag highlight">Hip-Hop</span>
+        <span class="genre-tag">Electronic</span>
+        <span class="genre-tag highlight">R&B</span>
+        <span class="genre-tag">Jazz</span>
+        <span class="genre-tag">Indie Rock</span>
+        <span class="genre-tag highlight">Neo-Soul</span>
+        <span class="genre-tag">Ambient</span>
+        <span class="genre-tag">Afrobeats</span>
+        <span class="genre-tag highlight">Alternative</span>
+        <span class="genre-tag">House</span>
+        <span class="genre-tag">Experimental</span>
+        <span class="genre-tag">Lo-Fi</span>
+        <span class="genre-tag highlight">UK Garage</span>
+        <span class="genre-tag">Drum & Bass</span>
+        <span class="genre-tag">Psychedelic</span>
+        <span class="genre-tag highlight">Soul</span>
+      </div>
+      <div class="brand-mark">
+        <div class="purple-circle"></div>
+        <div class="brand-mark-text">#9b7bbd</div>
+        <div style="display:flex;gap:8px;">
+          <div style="width:32px;height:32px;background:#0a0a0a;border:1px solid #333;"></div>
+          <div style="width:32px;height:32px;background:#111;border:1px solid #333;"></div>
+          <div style="width:32px;height:32px;background:#222;border:1px solid #333;"></div>
+          <div style="width:32px;height:32px;background:#ededed;border:1px solid #333;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+/* Polarity Animated Spatial Background
+ * Extracted from polarity-landing
+ * Apply to any section or container with position: relative
+ */
+
+:root {
+  --polarity-black: #0A0A0A;
+  --polarity-white: #FFFFFF;
+  --polarity-gray-300: #D4D4D4;
+  --polarity-gray-500: #737373;
+  --polarity-gray-700: #404040;
+  --polarity-gray-800: #262626;
+  --polarity-gray-900: #171717;
+  --polarity-accent: #4ECDC4;
+  --polarity-accent-glow: rgba(78, 205, 196, 0.15);
+  --polarity-coral: #FFA07A;
+  --polarity-purple: #BB8FCE;
+  --polarity-red: #FF4D4D;
+}
+
+/* Animated spatial background - apply to sections */
+.polarity-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.polarity-bg::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    /* Large glow orbs */
+    radial-gradient(60px 60px at 88% 12%, rgba(78, 205, 196, 0.15) 0%, transparent 70%),
+    radial-gradient(100px 100px at 15% 25%, rgba(78, 205, 196, 0.08) 0%, transparent 70%),
+    radial-gradient(120px 120px at 75% 70%, rgba(255, 160, 122, 0.07) 0%, transparent 70%),
+    radial-gradient(90px 90px at 50% 50%, rgba(187, 143, 206, 0.06) 0%, transparent 70%),
+    /* Medium particles - teal */
+    radial-gradient(4px 4px at 15% 20%, #4ECDC4 0%, rgba(78, 205, 196, 0.4) 40%, transparent 70%),
+    radial-gradient(5px 5px at 88% 12%, #4ECDC4 0%, rgba(78, 205, 196, 0.5) 40%, transparent 70%),
+    radial-gradient(3px 3px at 45% 85%, #4ECDC4 0%, rgba(78, 205, 196, 0.4) 40%, transparent 70%),
+    /* Medium particles - coral */
+    radial-gradient(5px 5px at 75% 30%, #FFA07A 0%, rgba(255, 160, 122, 0.4) 40%, transparent 70%),
+    radial-gradient(4px 4px at 25% 70%, #FFA07A 0%, rgba(255, 160, 122, 0.4) 40%, transparent 70%),
+    radial-gradient(3px 3px at 90% 55%, #FFA07A 0%, rgba(255, 160, 122, 0.3) 40%, transparent 70%),
+    /* Medium particles - purple */
+    radial-gradient(4px 4px at 60% 45%, #BB8FCE 0%, rgba(187, 143, 206, 0.4) 40%, transparent 70%),
+    radial-gradient(5px 5px at 10% 60%, #BB8FCE 0%, rgba(187, 143, 206, 0.4) 40%, transparent 70%),
+    radial-gradient(3px 3px at 35% 35%, #BB8FCE 0%, rgba(187, 143, 206, 0.3) 40%, transparent 70%),
+    /* Tiny dust particles */
+    radial-gradient(2px 2px at 5% 15%, rgba(78, 205, 196, 0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 12% 42%, rgba(255, 160, 122, 0.6) 0%, transparent 100%),
+    radial-gradient(2px 2px at 8% 78%, rgba(187, 143, 206, 0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 22% 8%, rgba(78, 205, 196, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 28% 55%, rgba(255, 160, 122, 0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 35% 92%, rgba(187, 143, 206, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 42% 18%, rgba(78, 205, 196, 0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 55% 65%, rgba(255, 160, 122, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 62% 5%, rgba(187, 143, 206, 0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 68% 88%, rgba(78, 205, 196, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 78% 38%, rgba(255, 160, 122, 0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 72%, rgba(187, 143, 206, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 92% 25%, rgba(78, 205, 196, 0.6) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 95% 95%, rgba(255, 160, 122, 0.5) 0%, transparent 100%);
+  pointer-events: none;
+  animation: polarity-float 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes polarity-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-10px, 10px) scale(1.02); }
+  50% { transform: translate(5px, -5px) scale(0.98); }
+  75% { transform: translate(10px, 5px) scale(1.01); }
+}
+
+/* Secondary ambient glow layer */
+.polarity-bg::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 50vw 35vh at 20% 30%, rgba(78, 205, 196, 0.025) 0%, transparent 50%),
+    radial-gradient(ellipse 40vw 28vh at 80% 65%, rgba(255, 160, 122, 0.02) 0%, transparent 50%),
+    radial-gradient(ellipse 45vw 30vh at 50% 80%, rgba(187, 143, 206, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure content is above background */
+.polarity-bg > * {
+  position: relative;
+  z-index: 1;
+}

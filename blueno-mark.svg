@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outlined blueno mark, centered. Two-color brand system: faded
+       blue is the bear (silhouette + face features + lamp pole, the
+       structural "of the bear" parts); bone is the LIGHT (bulb halo
+       + bulb body + radiating rays, the "lamp is on" parts). The
+       bulb is not blue because light is not blue, the design system
+       uses bone for warm soft accents, and the contrast lets the lamp
+       actually read as a lamp instead of a blue dot on a blue bear.
+       Composition center sits at y=120 in the 240x240 viewBox. -->
+
+  <g stroke="rgb(96,165,250)" stroke-width="7">
+    <!-- ears -->
+    <circle cx="58"  cy="77" r="26"/>
+    <circle cx="58"  cy="77" r="11"/>
+    <circle cx="182" cy="77" r="26"/>
+    <circle cx="182" cy="77" r="11"/>
+    <!-- head -->
+    <path d="M40 111 Q40 67 120 67 Q200 67 200 111 L200 159 Q200 203 120 203 Q40 203 40 159 Z"/>
+    <!-- smile -->
+    <path d="M92 159 Q120 177 148 159"/>
+  </g>
+
+  <!-- eyes + nose: filled blue, no stroke -->
+  <circle cx="88"  cy="133" r="5" fill="rgb(96,165,250)"/>
+  <circle cx="152" cy="133" r="5" fill="rgb(96,165,250)"/>
+  <ellipse cx="120" cy="157" rx="6" ry="4" fill="rgb(96,165,250)"/>
+
+  <!-- LAMP STRUCTURE (blue, matches bear) -->
+  <line x1="120" y1="55" x2="120" y2="43" stroke="rgb(96,165,250)" stroke-width="4"/>
+
+  <!-- LAMP LIGHT (bone, the bulb is on) -->
+  <!-- soft outer halo -->
+  <circle cx="120" cy="35" r="14" fill="rgba(217,213,203,0.16)"/>
+  <!-- bulb body -->
+  <circle cx="120" cy="35" r="6" fill="#D9D5CB"/>
+  <!-- inner highlight -->
+  <circle cx="120" cy="35" r="2" fill="#FFFFFF"/>
+
+  <!-- radiating rays. Five lines fanning around the bulb so the lit
+       state reads at any size from favicon to hero. -->
+  <g stroke="#D9D5CB" stroke-width="3" opacity="0.9">
+    <line x1="120" y1="22" x2="120" y2="16"/>
+    <line x1="106" y1="25" x2="102" y2="20"/>
+    <line x1="134" y1="25" x2="138" y2="20"/>
+    <line x1="100" y1="35" x2="94"  y2="35"/>
+    <line x1="140" y1="35" x2="146" y2="35"/>
+  </g>
+</svg>

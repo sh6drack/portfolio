@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="POLARITY - You forget 70% of everything within 24 hours. We fix that.">
+  <meta name="theme-color" content="#0A0A0A">
+  <title>POLARITY - Stop Forgetting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #0A0A0A;
+      --white: #FFFFFF;
+      --gray-300: #D4D4D4;
+      --gray-500: #737373;
+      --gray-700: #404040;
+      --gray-800: #262626;
+      --gray-900: #171717;
+      --accent: #4ECDC4;
+      --accent-glow: rgba(78, 205, 196, 0.15);
+      --red: #FF4D4D;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: var(--gray-800);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* TYPOGRAPHY */
+    .display {
+      font-size: clamp(64px, 15vw, 160px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.85;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+    }
+
+    .body-large {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--gray-300);
+    }
+
+    .body {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--gray-300);
+    }
+
+    .mono {
+      font-family: 'Space Mono', monospace;
+    }
+
+    .accent { color: var(--accent); }
+    .red { color: var(--red); }
+    .text-center { text-align: center; }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--gray-800);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--accent);
+      padding: 8px 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 140px 24px 100px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      margin-bottom: 30px;
+    }
+
+    .hero-tagline {
+      max-width: 550px;
+      margin-top: 40px;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--gray-500);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* PROBLEM SECTION */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .problem-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+    }
+
+    .forgetting-curve {
+      position: relative;
+      height: 300px;
+      border-left: 2px solid var(--gray-700);
+      border-bottom: 2px solid var(--gray-700);
+      margin-left: 40px;
+    }
+
+    .curve-label-y {
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: rotate(-90deg) translateX(50%);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      white-space: nowrap;
+    }
+
+    .curve-label-x {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+    }
+
+    .curve-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .curve-line svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .curve-point {
+      position: absolute;
+      transform: translate(-50%, 50%);
+      text-align: center;
+    }
+
+    .curve-point-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--red);
+    }
+
+    .curve-point-label {
+      font-size: 10px;
+      color: var(--gray-500);
+      margin-top: 5px;
+    }
+
+    .problem-content h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 25px;
+    }
+
+    .problem-content p {
+      font-size: 18px;
+      color: var(--gray-300);
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 600px) {
+      .stats {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    .stat {
+      text-align: center;
+      padding: 30px;
+      border: 1px solid var(--gray-800);
+    }
+
+    .stat-value {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-value.red { color: var(--red); }
+    .stat-value.accent { color: var(--accent); }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray-500);
+      margin-top: 10px;
+      line-height: 1.4;
+    }
+
+    /* SOLUTION */
+    .solution-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 80px;
+    }
+
+    .solution-header h2 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .step-desc {
+      font-size: 15px;
+      color: var(--gray-300);
+      line-height: 1.6;
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-card {
+      border: 1px solid var(--gray-800);
+      padding: 40px;
+      background: var(--gray-900);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--gray-700);
+      transform: translateY(-4px);
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 15px;
+    }
+
+    .feature-desc {
+      font-size: 15px;
+      color: var(--gray-300);
+      line-height: 1.6;
+    }
+
+    /* WHAT IT REMEMBERS */
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .regions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .regions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .region {
+      padding: 25px 30px;
+      border-left: 4px solid var(--accent);
+      background: var(--gray-900);
+      transition: transform 0.3s;
+    }
+
+    .region:hover {
+      transform: translateX(8px);
+    }
+
+    .region-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+
+    .region-desc {
+      font-size: 14px;
+      color: var(--gray-500);
+    }
+
+    /* QUOTE */
+    .quote-section {
+      padding: 120px 24px;
+      text-align: center;
+    }
+
+    .quote {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gray-300);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 0;
+    }
+
+    .cta-box {
+      background: var(--accent);
+      color: var(--black);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-title {
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      margin-bottom: 15px;
+    }
+
+    .cta-subtitle {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+
+    .cta-link {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 16px 40px;
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .cta-link:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 24px;
+      border-top: 1px solid var(--gray-800);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-text {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 600px) {
+      .footer-inner {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+    }
+
+    .mb-20 { margin-bottom: 20px; }
+    .mb-40 { margin-bottom: 40px; }
+    .mb-60 { margin-bottom: 60px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">POLARITY</div>
+        <div class="badge">BETA</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-line"></div>
+    <div class="subtitle mb-20">THE PROBLEM WITH BEING HUMAN</div>
+    <h1 class="display">YOU<br>FORGET</h1>
+    <p class="body-large hero-tagline">
+      That brilliant idea. That person's name. That thing you learned last week. Gone. Polarity makes sure nothing slips away.
+    </p>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- THE PROBLEM -->
+  <section>
+    <div class="container">
+      <div class="problem-grid">
+        <div class="forgetting-curve">
+          <div class="curve-label-y">MEMORY RETENTION</div>
+          <div class="curve-label-x">TIME</div>
+          <div class="curve-line">
+            <svg viewBox="0 0 400 300" preserveAspectRatio="none">
+              <path d="M 0 20 Q 50 80, 100 180 Q 150 240, 200 260 Q 300 280, 400 285"
+                    stroke="#FF4D4D" stroke-width="3" fill="none" opacity="0.8"/>
+              <path d="M 0 20 L 0 300" stroke="transparent"/>
+            </svg>
+          </div>
+          <div class="curve-point" style="left: 25%; bottom: 40%;">
+            <div class="curve-point-value">-50%</div>
+            <div class="curve-point-label">1 hour</div>
+          </div>
+          <div class="curve-point" style="left: 50%; bottom: 15%;">
+            <div class="curve-point-value">-70%</div>
+            <div class="curve-point-label">24 hours</div>
+          </div>
+          <div class="curve-point" style="left: 85%; bottom: 5%;">
+            <div class="curve-point-value">-90%</div>
+            <div class="curve-point-label">1 week</div>
+          </div>
+        </div>
+        <div class="problem-content">
+          <h2>THE EBBINGHAUS FORGETTING CURVE</h2>
+          <p>In 1885, Hermann Ebbinghaus discovered something brutal: we forget most of what we learn almost immediately.</p>
+          <p>Within 24 hours, 70% is gone. Within a week, 90%. All those conversations, ideas, names, lessons — vanishing.</p>
+          <p class="accent" style="font-weight: 600;">This isn't a you problem. It's a human problem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- STATS -->
+  <section>
+    <div class="container">
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value red">70%</div>
+          <div class="stat-label">forgotten within 24 hours</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value red">90%</div>
+          <div class="stat-label">gone within a week</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value accent">0%</div>
+          <div class="stat-label">lost when you tell Polarity</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SOLUTION -->
+  <section>
+    <div class="container">
+      <div class="solution-header">
+        <div class="subtitle mb-20">THE SOLUTION</div>
+        <h2>POLARITY<br>REMEMBERS</h2>
+        <p class="body-large">An AI companion that captures everything you tell it and keeps it forever. Organized. Searchable. Yours.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">TALK</div>
+          <p class="step-desc">Tell Polarity about your day, your ideas, the people you meet. Just like texting a friend.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">CAPTURE</div>
+          <p class="step-desc">Polarity extracts the important stuff automatically. Names, facts, plans, feelings — all saved.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">RECALL</div>
+          <p class="step-desc">Ask anything. "What did Sarah say about the project?" "When did I have that idea?" Instant answers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEATURES -->
+  <section>
+    <div class="container">
+      <div class="subtitle text-center mb-60">WHY POLARITY</div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3 class="feature-title">TOTAL RECALL</h3>
+          <p class="feature-desc">Every conversation, every detail, every person. Nothing falls through the cracks. Your memory, extended infinitely.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title">ZERO EFFORT</h3>
+          <p class="feature-desc">No apps to learn, no tags to add, no folders to organize. Just talk naturally. Polarity does the rest.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title">VISUAL KNOWLEDGE</h3>
+          <p class="feature-desc">See your memories as a connected map. Watch how ideas link together. Discover patterns you never noticed.</p>
+        </div>
+        <div class="feature-card">
+          <h3 class="feature-title">COMPLETELY PRIVATE</h3>
+          <p class="feature-desc">Your memories encrypted with a key only you have. We literally cannot access your data. Ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- WHAT IT REMEMBERS -->
+  <section>
+    <div class="container">
+      <div class="subtitle text-center mb-20">WHAT POLARITY CAPTURES</div>
+      <p class="body text-center mb-60" style="color: var(--gray-500);">Everything that matters</p>
+      <div class="regions-grid">
+        <div class="region" style="border-color: #4ECDC4;">
+          <div class="region-title">MOMENTS</div>
+          <div class="region-desc">What happened and when</div>
+        </div>
+        <div class="region" style="border-color: #45B7AA;">
+          <div class="region-title">PEOPLE</div>
+          <div class="region-desc">Names, relationships, history</div>
+        </div>
+        <div class="region" style="border-color: #FF4D00;">
+          <div class="region-title">IDEAS</div>
+          <div class="region-desc">Thoughts worth keeping</div>
+        </div>
+        <div class="region" style="border-color: #FF6B6B;">
+          <div class="region-title">FEELINGS</div>
+          <div class="region-desc">The emotional context</div>
+        </div>
+        <div class="region" style="border-color: #BB8FCE;">
+          <div class="region-title">LEARNINGS</div>
+          <div class="region-desc">Facts and insights</div>
+        </div>
+        <div class="region" style="border-color: #666;">
+          <div class="region-title">CONNECTIONS</div>
+          <div class="region-desc">How it all links together</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote-section">
+    <p class="quote">We are what we remember. If we lose our memory, we lose our identity.<br><span style="font-size: 0.6em; opacity: 0.6;">— Jorge Luis Borges</span></p>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2 class="cta-title">STOP FORGETTING</h2>
+      <p class="cta-subtitle">Join the beta and remember everything</p>
+      <a href="https://polarity-lab.com" class="cta-link">GET EARLY ACCESS</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-text mono">POLARITY BETA 2025</div>
+      <div class="footer-text">polarity-lab.com</div>
+    </div>
+  </footer>
+
+</body>
+</html>

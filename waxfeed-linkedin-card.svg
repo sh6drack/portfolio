@@ -154,13 +154,15 @@
   </g>
 
   <!-- KNOW YOUR MUSIC in Helvetica Bold, small, centered at bottom -->
-  <text x="600" y="575"
-        font-family="Helvetica, Arial, sans-serif"
-        font-size="14"
-        font-weight="700"
-        fill="#999999"
+  <text x="600" y="590"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="15"
+        font-weight="bold"
+        fill="#888888"
         text-anchor="middle"
-        letter-spacing="3">
+        letter-spacing="4.5"
+        stroke="#888888"
+        stroke-width="0.3">
     KNOW YOUR MUSIC
   </text>
 </svg>
