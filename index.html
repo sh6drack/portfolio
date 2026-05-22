@@ -819,6 +819,7 @@
     .project-thumbnail .glitch {
       position: relative;
       display: inline-block;
+      z-index: 1;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 700;
       font-size: clamp(28px, 20cqi, 104px);
@@ -826,6 +827,14 @@
       line-height: 0.95;
       color: #fff;
       user-select: none;
+    }
+    /* Rust + polarity-toned particles behind the wordmark — the same
+       field as the link-preview card, scattered clear of the lettering. */
+    .project-thumbnail .card-particles {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .project-thumbnail .card-particles span {
+      position: absolute; border-radius: 50%;
     }
     /* "POLARITY LAB" is a long all-caps lockup — size it down so both
        words sit on one line, filling the thumbnail the way "cosmos"
@@ -1486,6 +1495,20 @@
         <div class="projects-grid">
           <a href="https://cosmos.polarity-lab.com" target="_blank" class="project-card cosmos transparent">
             <div class="project-thumbnail">
+              <div class="card-particles" aria-hidden="true">
+                <span style="left:9%;top:19%;width:6px;height:6px;background:#C2622E;box-shadow:0 0 12px 3px rgba(194,98,46,0.5);"></span>
+                <span style="left:25%;top:13%;width:5px;height:5px;background:#E0A064;box-shadow:0 0 10px 2px rgba(224,160,100,0.5);"></span>
+                <span style="left:15%;top:83%;width:6px;height:6px;background:#D4814A;box-shadow:0 0 12px 3px rgba(212,129,74,0.5);"></span>
+                <span style="left:34%;top:89%;width:4px;height:4px;background:#7FEDC7;box-shadow:0 0 9px 2px rgba(127,237,199,0.45);"></span>
+                <span style="left:7%;top:55%;width:4px;height:4px;background:#B79CE8;box-shadow:0 0 9px 2px rgba(183,156,232,0.45);"></span>
+                <span style="left:89%;top:18%;width:6px;height:6px;background:#B5572A;box-shadow:0 0 12px 3px rgba(181,87,42,0.5);"></span>
+                <span style="left:79%;top:25%;width:5px;height:5px;background:#E8809A;box-shadow:0 0 10px 2px rgba(232,128,154,0.45);"></span>
+                <span style="left:93%;top:73%;width:6px;height:6px;background:#C2622E;box-shadow:0 0 12px 3px rgba(194,98,46,0.5);"></span>
+                <span style="left:73%;top:87%;width:5px;height:5px;background:#E0A064;box-shadow:0 0 10px 2px rgba(224,160,100,0.5);"></span>
+                <span style="left:92%;top:47%;width:4px;height:4px;background:#6FD9BE;box-shadow:0 0 9px 2px rgba(111,217,190,0.45);"></span>
+                <span style="left:52%;top:9%;width:5px;height:5px;background:#C2622E;box-shadow:0 0 10px 2px rgba(194,98,46,0.5);"></span>
+                <span style="left:61%;top:90%;width:4px;height:4px;background:#C5A8FF;box-shadow:0 0 9px 2px rgba(197,168,255,0.45);"></span>
+              </div>
               <div class="glitch" data-text="cosmos">cosmos</div>
             </div>
             <div class="project-info">
