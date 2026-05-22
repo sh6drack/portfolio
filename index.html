@@ -766,6 +766,7 @@
       background: #04060c;
       position: relative;
       overflow: hidden;
+      container-type: inline-size;
     }
 
     /* TV-glitch wordmark from polarity-lab.com brand pack. The vertical
@@ -801,6 +802,72 @@
     @keyframes polarity-scan {
       0%   { background-position: 0% -120%; }
       100% { background-position: 0% 120%; }
+    }
+
+    /* Reverberating TV-glitch wordmark, lifted from the cosmos hero
+       (cosmos.polarity-lab.com). The word echoes itself through two
+       text-clipped scanline layers — slow black bars under a fast white
+       strobe — so it reads as a signal breaking up and re-forming.
+       Sized in cqi so it tracks the thumbnail at any column width. */
+    .project-card.cosmos .project-thumbnail {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #04060c;
+      container-type: inline-size;
+    }
+    .project-thumbnail .glitch {
+      position: relative;
+      display: inline-block;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: clamp(28px, 20cqi, 104px);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      color: #fff;
+      user-select: none;
+    }
+    .project-thumbnail .glitch::before {
+      content: attr(data-text);
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0.92) 0, rgba(0,0,0,0.92) 1px, transparent 1px, transparent 7px);
+      background-size: 200% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; -webkit-text-fill-color: transparent;
+      animation: tv-bars-slow 5.5s linear infinite, tv-flash 5.5s steps(1) infinite;
+    }
+    .project-thumbnail .glitch::after {
+      content: attr(data-text);
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: repeating-linear-gradient(90deg, rgba(255,255,255,1) 0, rgba(255,255,255,1) 1px, transparent 1px, transparent 11px);
+      background-size: 200% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; -webkit-text-fill-color: transparent;
+      mix-blend-mode: screen;
+      animation: tv-bars-fast 1.7s linear infinite, tv-strobe 7s steps(1) infinite;
+    }
+    @keyframes tv-bars-slow { 0% { background-position: 0% 0; } 100% { background-position: -200% 0; } }
+    @keyframes tv-bars-fast { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
+    @keyframes tv-flash {
+      0%, 18%, 22%, 60%, 64%, 100% { opacity: 0.85; }
+      20%, 62% { opacity: 0.4; }
+      85%, 86% { opacity: 1; transform: translate3d(2px,0,0); }
+      87% { opacity: 0; }
+      88% { opacity: 1; transform: translate3d(-3px,0,0); }
+      89% { opacity: 0.85; transform: translate3d(0,0,0); }
+    }
+    @keyframes tv-strobe {
+      0%, 100% { opacity: 0; }
+      3%, 4% { opacity: 0.6; }
+      5% { opacity: 0; }
+      41%, 42% { opacity: 1; }
+      43% { opacity: 0; }
+      78%, 79%, 80% { opacity: 0.8; }
+      80.1% { opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .project-thumbnail .glitch::before,
+      .project-thumbnail .glitch::after { animation: none; }
     }
 
     .project-info { padding: clamp(16px, 2.5vw, 24px); position: relative; }
@@ -1249,7 +1316,7 @@
         </a>
         <a href="#work" class="fork-block">
           <span class="fork-label">WORK</span>
-          <span class="fork-count">7 PROJECTS</span>
+          <span class="fork-count">9 PROJECTS</span>
         </a>
       </nav>
       <div class="landing-bottom">
@@ -1410,21 +1477,9 @@
           <span class="count">9 PROJECTS</span>
         </div>
         <div class="projects-grid">
-          <a href="https://cosmos.polarity-lab.com" target="_blank" class="project-card transparent">
-            <div class="project-thumbnail" style="display: flex; align-items: center; justify-content: center;">
-              <svg viewBox="0 0 40 40" style="width: 38%; height: auto;" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" aria-label="Cosmos">
-                <line x1="20" y1="20" x2="8" y2="12"/>
-                <line x1="20" y1="20" x2="32" y2="10"/>
-                <line x1="20" y1="20" x2="30" y2="30"/>
-                <line x1="20" y1="20" x2="12" y2="31"/>
-                <line x1="8" y1="12" x2="32" y2="10"/>
-                <line x1="30" y1="30" x2="12" y2="31"/>
-                <circle cx="20" cy="20" r="2.6" fill="currentColor" stroke="none"/>
-                <circle cx="8" cy="12" r="1.9" fill="currentColor" stroke="none"/>
-                <circle cx="32" cy="10" r="1.9" fill="currentColor" stroke="none"/>
-                <circle cx="30" cy="30" r="1.9" fill="currentColor" stroke="none"/>
-                <circle cx="12" cy="31" r="1.9" fill="currentColor" stroke="none"/>
-              </svg>
+          <a href="https://cosmos.polarity-lab.com" target="_blank" class="project-card cosmos transparent">
+            <div class="project-thumbnail">
+              <div class="glitch" data-text="cosmos">cosmos</div>
             </div>
             <div class="project-info">
               <span class="card-type">REFLECTIVE MEMORY</span>
@@ -1436,7 +1491,7 @@
 
           <a href="https://polarity-lab.com" target="_blank" class="project-card polarity transparent">
             <div class="project-thumbnail">
-              <img src="polarity-wordmark.svg" alt="POLARITY" class="polarity-wordmark">
+              <div class="glitch" data-text="polarity">polarity</div>
             </div>
             <div class="project-info">
               <span class="card-type">RESEARCH LABORATORY</span>
