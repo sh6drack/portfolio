@@ -1298,6 +1298,22 @@
     body.light .project-card:hover .project-info h3,
     body.light #view-work .project-card:hover .project-info h3 { color: #050505; }
     body.light .project-card .project-thumbnail { background: #e8e8e8; }
+    body.light #view-work .project-card:not(.transparent) {
+      background: #efefef;
+      border-color: rgba(0,0,0,0.06);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    body.light #view-work .project-card:not(.transparent):hover {
+      background: #e5e5e5;
+      border-color: rgba(0,0,0,0.12);
+    }
+    body.light #view-work .project-card:not(.transparent) .project-thumbnail {
+      background: #e8e8e8;
+    }
+    body.light #view-work .youtube-thumbnail img {
+      filter: brightness(1.08) saturate(0.95);
+    }
     body.light #view-work .project-card.transparent,
     body.light #view-work .project-card.transparent .project-thumbnail {
       background: transparent !important;
@@ -1322,6 +1338,9 @@
     body.light .avdp-mark,
     body.light .wbru-mark,
     body.light img[src$="blueno-mark.svg"] { filter: invert(1); }
+    body.light #view-work .project-card.transparent:hover .wbru-mark {
+      filter: invert(1) drop-shadow(0 0 14px rgba(0,0,0,0.1));
+    }
   </style>
 </head>
 <body class="is-landing">
