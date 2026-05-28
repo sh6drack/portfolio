@@ -1,10 +1,16 @@
 // Shared theme toggle. Reads/writes localStorage 'theme' so the choice
-// persists across pages. Default is light when no value is stored.
+// persists across pages after the one-time light-default migration.
 (function () {
   var SVG_NS = 'http://www.w3.org/2000/svg';
+  var DEFAULT_THEME_VERSION = 'light-default-2026-05-28';
 
   function readTheme() {
     try {
+      if (localStorage.getItem('theme-default-version') !== DEFAULT_THEME_VERSION) {
+        localStorage.setItem('theme-default-version', DEFAULT_THEME_VERSION);
+        localStorage.removeItem('theme');
+        return 'light';
+      }
       var v = localStorage.getItem('theme');
       return v === 'dark' ? 'dark' : 'light';
     } catch (e) {
