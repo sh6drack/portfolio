@@ -1,3 +1,36 @@
+/* Custom cursor — desktop with fine pointer only */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+
+  .cursor {
+    --size: 12px;
+    height: var(--size);
+    width: var(--size);
+    border-radius: 50% !important;
+    pointer-events: none;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    background: #ffffff;
+    mix-blend-mode: difference;
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
+    transition-timing-function: ease-out;
+  }
+
+  .cursor.active {
+    --size: 32px;
+    background-color: #ffffff;
+  }
+}
+
+@media (pointer: coarse), (hover: none) {
+  .cursor {
+    display: none !important;
+  }
+}
+
 /* Transmission pages */
 *, *::before, *::after {
   margin: 0;

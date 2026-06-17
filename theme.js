@@ -66,9 +66,32 @@
     document.body.appendChild(btn);
   }
 
+  function initCursor() {
+    var supportsHover = window.matchMedia('(hover: hover)').matches;
+    if (!supportsHover) return;
+    var cursor = document.createElement('div');
+    cursor.className = 'cursor';
+    document.body.appendChild(cursor);
+    document.addEventListener('mousemove', function(e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mouseover', function(e) {
+      if (e.target.matches('a, button, [role="button"], input, textarea, select, label[for], [data-interactive]')) {
+        cursor.classList.add('active');
+      }
+    });
+    document.addEventListener('mouseout', function(e) {
+      if (e.target.matches('a, button, [role="button"], input, textarea, select, label[for], [data-interactive]')) {
+        cursor.classList.remove('active');
+      }
+    });
+  }
+
   function wire() {
     applyTheme(readTheme());
     ensureButton();
+    initCursor();
     var btn = document.getElementById('theme-toggle');
     if (!btn) return;
     btn.addEventListener('click', function () {

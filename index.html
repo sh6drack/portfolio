@@ -48,6 +48,32 @@
   }
   </script>
   <style>
+    /* Custom cursor — desktop with fine pointer only */
+    @media (hover: hover) and (pointer: fine) {
+      * { cursor: none !important; }
+      .cursor {
+        --size: 12px;
+        height: var(--size);
+        width: var(--size);
+        border-radius: 50% !important;
+        pointer-events: none;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        z-index: 99999;
+        background: #ffffff;
+        mix-blend-mode: difference;
+        transition: width 0.3s, height 0.3s, background-color 0.3s;
+        transition-timing-function: ease-out;
+      }
+      .cursor.active {
+        --size: 32px;
+        background-color: #ffffff;
+      }
+    }
+    @media (pointer: coarse), (hover: none) {
+      .cursor { display: none !important; }
+    }
+
     /* ===== RESET ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
@@ -111,6 +137,7 @@
     }
 
     #view-transmissions.active,
+    #view-perspective.active,
     #view-work.active {
       display: flex;
       flex-direction: column;
@@ -153,6 +180,13 @@
       animation: fork-tune 1.2s ease-in-out infinite;
     }
     .fork-block:hover .fork-count { color: rgba(255,255,255,0.3); }
+
+    .fork-featured {
+      grid-column: 1 / -1;
+      width: calc(50% - 0.5px);
+      justify-self: center;
+      min-height: clamp(112px, 14vw, 168px);
+    }
 
     /* Subtle horizontal modulation on the active fork label — feels like
        the line is settling onto its track. No labels, no readouts; pure
@@ -328,9 +362,8 @@
 
     .feature-frame .play-button {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: 72px; height: 72px;
+      bottom: 16px; right: 16px;
+      width: 56px; height: 56px;
       background: rgba(255,255,255,0.95);
       display: flex;
       align-items: center;
@@ -348,7 +381,7 @@
 
     .feature-frame:hover .play-button {
       background: #fff;
-      transform: translate(-50%, -50%) scale(1.06);
+      transform: scale(1.06);
     }
 
     .feature-frame::after {
@@ -651,6 +684,137 @@
     }
 
     .writing-origin a:hover { color: rgba(255,255,255,0.4); }
+
+    /* ===== PERSPECTIVE ===== */
+    .perspective-section {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .perspective-caption {
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: 0;
+      color: rgba(255,255,255,0.92);
+      text-transform: lowercase;
+      margin-top: clamp(36px, 8vw, 72px);
+      max-width: 720px;
+    }
+
+    .perspective-offer {
+      margin-top: clamp(44px, 8vw, 84px);
+      padding: clamp(24px, 4vw, 36px) 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: clamp(24px, 5vw, 56px);
+      align-items: center;
+    }
+
+    .perspective-kicker {
+      display: block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      color: rgba(255,255,255,0.24);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .perspective-title {
+      font-size: clamp(22px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: rgba(255,255,255,0.82);
+      text-transform: uppercase;
+    }
+
+    .perspective-price {
+      display: block;
+      margin-top: 14px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.26);
+      text-transform: uppercase;
+    }
+
+    .payment-form {
+      justify-self: end;
+      width: min(360px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .payment-input,
+    .payment-card {
+      width: 100%;
+      min-height: 52px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.8);
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      outline: none;
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .payment-input {
+      padding: 0 16px;
+    }
+
+    .payment-input::placeholder {
+      color: rgba(255,255,255,0.24);
+    }
+
+    .payment-input:focus,
+    .payment-card.is-ready {
+      border-color: rgba(255,255,255,0.42);
+    }
+
+    .payment-card {
+      padding: 12px 14px;
+    }
+
+    .payment-submit {
+      min-height: 52px;
+      padding: 0 22px;
+      border-color: rgba(255,255,255,0.75);
+      background: #fff;
+      color: #050505;
+      font-family: inherit;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.25s ease, background 0.25s ease;
+    }
+
+    .payment-submit:hover {
+      background: rgba(255,255,255,0.86);
+    }
+
+    .payment-submit:disabled {
+      cursor: wait;
+      opacity: 0.45;
+    }
+
+    .payment-status {
+      min-height: 14px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.34);
+    }
 
     /* ===== WORK ===== */
     .newsletter-form { display: flex; align-items: center; gap: 0; }
@@ -977,12 +1141,14 @@
     }
     body.is-changing-channel #view-landing.active,
     body.is-changing-channel #view-transmissions.active,
+    body.is-changing-channel #view-perspective.active,
     body.is-changing-channel #view-work.active {
       animation: crt-power-down 220ms cubic-bezier(0.7, 0, 0.84, 0) forwards;
       transform-origin: center center;
     }
     body.is-arriving #view-landing.active,
     body.is-arriving #view-transmissions.active,
+    body.is-arriving #view-perspective.active,
     body.is-arriving #view-work.active {
       animation: crt-power-up 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
       transform-origin: center center;
@@ -1016,11 +1182,12 @@
     /* ===== Particle dimming for transmissions room ===== */
     /* The reading room runs the canvas at low opacity so the writing has
        silence around it. Restored when leaving. */
-    body.in-transmissions #webgl-bg {
+    body.in-transmissions #webgl-bg,
+    body.in-perspective #webgl-bg {
       opacity: 0.3;
       transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
     }
-    body:not(.in-transmissions) #webgl-bg {
+    body:not(.in-transmissions):not(.in-perspective) #webgl-bg {
       opacity: 1;
       transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -1124,6 +1291,13 @@
     @media (max-width: 600px) {
       .header { flex-direction: column; align-items: flex-start; }
       .header-right { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .perspective-offer {
+        grid-template-columns: 1fr;
+      }
+      .payment-form {
+        justify-self: stretch;
+        width: 100%;
+      }
       /* Long landing byline. On phones the absolutely-positioned line
          pushed off-screen on both sides because translateX(-50%) plus
          the nowrap'd width exceeded the viewport. Allow it to wrap and
@@ -1160,6 +1334,7 @@
 
     @media (max-width: 500px) {
       .fork { grid-template-columns: 1fr; width: 100%; }
+      .fork-featured { width: 100%; }
       #view-landing.active { padding: 12px; }
     }
 
@@ -1280,6 +1455,41 @@
     body.light .writing-origin { color: rgba(0,0,0,0.32); }
     body.light .writing-origin a { color: rgba(0,0,0,0.4); }
     body.light .writing-origin a:hover { color: rgba(0,0,0,0.7); }
+    body.light .perspective-caption { color: rgba(0,0,0,0.92); }
+    body.light .perspective-offer {
+      border-top-color: rgba(0,0,0,0.08);
+      border-bottom-color: rgba(0,0,0,0.08);
+    }
+    body.light .perspective-kicker,
+    body.light .perspective-price {
+      color: rgba(0,0,0,0.32);
+    }
+    body.light .perspective-title {
+      color: rgba(0,0,0,0.82);
+    }
+    body.light .payment-input,
+    body.light .payment-card {
+      border-color: rgba(0,0,0,0.18);
+      color: rgba(0,0,0,0.75);
+    }
+    body.light .payment-input::placeholder {
+      color: rgba(0,0,0,0.32);
+    }
+    body.light .payment-input:focus,
+    body.light .payment-card.is-ready {
+      border-color: rgba(0,0,0,0.48);
+    }
+    body.light .payment-submit {
+      background: #050505;
+      border-color: #050505;
+      color: #f5f5f5;
+    }
+    body.light .payment-submit:hover {
+      background: rgba(0,0,0,0.86);
+    }
+    body.light .payment-status {
+      color: rgba(0,0,0,0.42);
+    }
     body.light .newsletter-form input {
       background: transparent;
       border-color: rgba(0,0,0,0.18);
@@ -1360,6 +1570,9 @@
           <span class="fork-label">WORK</span>
           <span class="fork-count">9 PROJECTS</span>
         </a>
+        <a href="#perspective" class="fork-block fork-featured">
+          <span class="fork-label">MY PERSPECTIVE</span>
+        </a>
       </nav>
       <div class="landing-bottom">
         <span class="byline">BY SHADRACK ANNOR</span>
@@ -1389,6 +1602,7 @@
         <a href="#" class="header-home">SHADRACK ANNOR</a>
         <nav class="header-nav">
           <a href="#transmissions" class="active">TRANSMISSIONS</a>
+          <a href="#perspective">PERSPECTIVE</a>
           <a href="#work">WORK</a>
         </nav>
       </header>
@@ -1451,6 +1665,10 @@
             <span class="writing-title">TRUTH LOOPS</span>
             <span class="writing-date">2025.04.17</span>
           </a>
+          <a href="transmissions/0010.html" class="writing-entry">
+            <span class="writing-title">LOVE IS IN PRESENCE</span>
+            <span class="writing-date">2025.04.19</span>
+          </a>
           <a href="transmissions/0011.html" class="writing-entry">
             <span class="writing-title">THE PROOF IS YOU</span>
             <span class="writing-date">2025.04.19</span>
@@ -1470,6 +1688,71 @@
     </div>
   </div>
 
+  <!-- ===== PERSPECTIVE ===== -->
+  <div id="view-perspective" class="view">
+    <div class="container container-narrow">
+      <header class="header">
+        <a href="#" class="header-home">SHADRACK ANNOR</a>
+        <nav class="header-nav">
+          <a href="#transmissions">TRANSMISSIONS</a>
+          <a href="#perspective" class="active">PERSPECTIVE</a>
+          <a href="#work">WORK</a>
+        </nav>
+      </header>
+
+      <div class="top-bar">
+        <a href="mailto:shadrack@brown.edu">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          EMAIL
+        </a>
+        <a href="https://www.linkedin.com/in/shadrack-annor-38a627235/" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          LINKEDIN
+        </a>
+        <a href="https://open.spotify.com/user/kingpharoah19" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          SPOTIFY
+        </a>
+      </div>
+
+      <section class="perspective-section">
+        <div class="section-label">
+          <span>MY PERSPECTIVE</span>
+          <span class="count">$10,000</span>
+        </div>
+        <p class="perspective-caption">this is how much my perspective costs</p>
+        <div class="perspective-offer">
+          <div>
+            <span class="perspective-kicker">SAMPLE BOOK</span>
+            <h2 class="perspective-title">A SERIES OF TRANSMISSIONS</h2>
+            <span class="perspective-price">10,000 USD</span>
+          </div>
+          <form
+            class="payment-form"
+            id="payment-form"
+            data-square-application-id="sq0idp-TlquK5NRSG9BbKAlj0VqzQ"
+            data-square-location-id="LT80EPP7A675W"
+          >
+            <input class="payment-input" id="buyer-email" name="email" type="email" placeholder="EMAIL" autocomplete="email" required>
+            <div class="payment-card" id="card-container"></div>
+            <button class="payment-submit" id="payment-submit" type="submit" disabled>PAY 10,000</button>
+            <p class="payment-status" id="payment-status" aria-live="polite">LOADING PAYMENT FORM</p>
+          </form>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+      <footer class="footer">
+        <p class="footer-tagline">POLARITY LAB</p>
+        <div class="footer-bottom">
+          <span class="footer-copyright">BROWN UNIVERSITY '27 / CS &amp; RELIGIOUS STUDIES</span>
+          <span class="footer-copyright">2026</span>
+        </div>
+      </footer>
+    </div>
+    <script src="https://web.squarecdn.com/v1/square.js"></script>
+  </div>
+
   <!-- ===== WORK ===== -->
   <div id="view-work" class="view">
     <div class="container container-wide">
@@ -1478,6 +1761,7 @@
         <div class="header-right">
           <nav class="header-nav">
             <a href="#transmissions">TRANSMISSIONS</a>
+            <a href="#perspective">PERSPECTIVE</a>
             <a href="#work" class="active">WORK</a>
           </nav>
           <div>
@@ -1670,6 +1954,7 @@
       function resolveBodyClass(view) {
         var base = (view === 'view-landing') ? 'is-landing' : 'is-content';
         if (view === 'view-transmissions') base += ' in-transmissions';
+        if (view === 'view-perspective') base += ' in-perspective';
         if (document.body.classList.contains('light')) base += ' light';
         return base;
       }
@@ -1689,6 +1974,9 @@
         if (hash === '#transmissions') {
           view = 'view-transmissions';
           title = 'Transmissions';
+        } else if (hash === '#perspective') {
+          view = 'view-perspective';
+          title = 'My Perspective';
         } else if (hash === '#work') {
           view = 'view-work';
           title = 'Work';
@@ -1725,7 +2013,7 @@
         var link = e.target.closest('a[href^="#"]');
         if (!link) return;
         var href = link.getAttribute('href');
-        if (href === '#transmissions' || href === '#work') {
+        if (href === '#transmissions' || href === '#perspective' || href === '#work') {
           e.preventDefault();
           history.pushState(null, '', '/' + href);
           navigate(href);
@@ -1748,6 +2036,106 @@
         var landing = document.getElementById('view-landing');
         if (landing) landing.classList.remove('first-load');
       }, 3000);
+    })();
+  </script>
+
+  <!-- ===== EMBEDDED SQUARE PAYMENT ===== -->
+  <script>
+    (function() {
+      var form = document.getElementById('payment-form');
+      if (!form) return;
+
+      var submit = document.getElementById('payment-submit');
+      var status = document.getElementById('payment-status');
+      var cardContainer = document.getElementById('card-container');
+      var card;
+
+      function setStatus(text, tone) {
+        status.textContent = text;
+        if (tone === 'error') status.style.color = '#FFA07A';
+        else if (tone === 'success') status.style.color = '#4ECDC4';
+        else status.style.color = '';
+      }
+
+      async function initSquarePayment() {
+        if (!window.Square) {
+          setStatus('PAYMENT FORM UNAVAILABLE', 'error');
+          return;
+        }
+
+        var payments = window.Square.payments(
+          form.getAttribute('data-square-application-id'),
+          form.getAttribute('data-square-location-id')
+        );
+
+        card = await payments.card({
+          style: {
+            input: {
+              color: document.body.classList.contains('light') ? '#050505' : '#ffffff',
+              fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
+              fontSize: '13px',
+              fontWeight: '600'
+            },
+            'input::placeholder': {
+              color: document.body.classList.contains('light') ? 'rgba(0,0,0,0.32)' : 'rgba(255,255,255,0.24)'
+            }
+          }
+        });
+        await card.attach('#card-container');
+        cardContainer.classList.add('is-ready');
+        submit.disabled = false;
+        setStatus('READY');
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (!card || submit.disabled) return;
+
+        submit.disabled = true;
+        submit.textContent = 'PROCESSING';
+        setStatus('TOKENIZING');
+
+        try {
+          var email = form.email.value.trim();
+          var tokenResult = await card.tokenize({
+            amount: '10000.00',
+            billingContact: { email: email },
+            currencyCode: 'USD',
+            intent: 'CHARGE',
+            customerInitiated: true,
+            sellerKeyedIn: false
+          });
+
+          if (tokenResult.status !== 'OK') {
+            throw new Error((tokenResult.errors || []).map(function(err) { return err.message; }).join(' ') || 'CARD TOKENIZATION FAILED');
+          }
+
+          setStatus('CHARGING');
+          var res = await fetch('/api/create-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              sourceId: tokenResult.token,
+              email: email
+            })
+          });
+          var data = await res.json().catch(function() { return {}; });
+          if (!res.ok || !data.ok) {
+            throw new Error(data.error || 'PAYMENT FAILED');
+          }
+
+          setStatus('PAID', 'success');
+          submit.textContent = 'PAID';
+        } catch (err) {
+          setStatus(err.message || 'PAYMENT FAILED', 'error');
+          submit.textContent = 'PAY 10,000';
+          submit.disabled = false;
+        }
+      });
+
+      initSquarePayment().catch(function(err) {
+        setStatus(err.message || 'PAYMENT FORM FAILED', 'error');
+      });
     })();
   </script>
 
