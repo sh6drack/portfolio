@@ -39,7 +39,7 @@ export async function onRequestPost({ request, env }) {
     idempotency_key: crypto.randomUUID(),
     amount_money: AMOUNT_MONEY,
     location_id: LOCATION_ID,
-    note: 'MY PERSPECTIVE'
+    note: 'AN UNFILTERED SERIES OF TRANSMISSIONS PRE-ORDER'
   };
 
   if (email) {

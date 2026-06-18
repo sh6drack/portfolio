@@ -149,7 +149,7 @@
     /* ===== LANDING ===== */
     .fork {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1px;
       width: min(700px, 90vw);
       max-width: 100%;
@@ -171,6 +171,7 @@
       color: inherit;
       transition: background 0.5s ease;
       min-height: clamp(120px, 18vw, 200px);
+      min-width: 0;
     }
 
     .fork-block:hover { background: rgba(255,255,255,0.05); }
@@ -183,9 +184,11 @@
 
     .fork-featured {
       grid-column: 1 / -1;
-      width: calc(50% - 0.5px);
+      width: min(100%, 520px);
       justify-self: center;
       min-height: clamp(112px, 14vw, 168px);
+      padding-top: clamp(28px, 4vw, 42px);
+      padding-bottom: clamp(28px, 4vw, 42px);
     }
 
     /* Subtle horizontal modulation on the active fork label — feels like
@@ -198,14 +201,19 @@
     }
 
     .fork-label {
-      font-size: clamp(20px, 3.5vw, 36px);
+      font-size: clamp(16px, 2.8vw, 32px);
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.4);
-      line-height: 1;
+      line-height: 1.1;
       transition: all 0.4s ease;
       margin-bottom: 8px;
+      word-break: normal;
+    }
+
+    .fork-featured .fork-label {
+      font-size: clamp(19px, 3vw, 32px);
     }
 
     .fork-count {
@@ -687,67 +695,111 @@
 
     /* ===== PERSPECTIVE ===== */
     .perspective-section {
-      max-width: 760px;
-      margin: 0 auto;
+      width: 100%;
+    }
+
+    .perspective-intro {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(40px, 8vw, 80px) clamp(28px, 6vw, 60px);
+      text-align: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .perspective-intro.exiting {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .perspective-caption {
-      font-size: clamp(36px, 7vw, 72px);
+      font-size: clamp(28px, 5.6vw, 56px);
       font-weight: 700;
       line-height: 0.95;
       letter-spacing: 0;
       color: rgba(255,255,255,0.92);
-      text-transform: lowercase;
-      margin-top: clamp(36px, 8vw, 72px);
+      text-transform: uppercase;
       max-width: 720px;
     }
 
-    .perspective-offer {
-      margin-top: clamp(44px, 8vw, 84px);
-      padding: clamp(24px, 4vw, 36px) 0;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: clamp(24px, 5vw, 56px);
-      align-items: center;
-    }
-
-    .perspective-kicker {
-      display: block;
+    .perspective-enter {
+      margin-top: clamp(48px, 8vw, 80px);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.5);
+      font-family: inherit;
       font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.24em;
-      color: rgba(255,255,255,0.24);
+      letter-spacing: 0.42em;
       text-transform: uppercase;
-      margin-bottom: 12px;
+      padding: 13px 44px;
+      cursor: pointer;
+      transition: border-color 0.4s ease, color 0.4s ease;
+    }
+
+    .perspective-enter:hover {
+      border-color: rgba(255,255,255,0.62);
+      color: rgba(255,255,255,0.9);
+    }
+
+    .perspective-checkout {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: clamp(80px, 12vh, 120px) clamp(28px, 6vw, 60px) clamp(80px, 10vh, 100px);
+      width: 100%;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .perspective-checkout.visible {
+      opacity: 1;
     }
 
     .perspective-title {
-      font-size: clamp(22px, 4vw, 44px);
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: 0.02em;
-      color: rgba(255,255,255,0.82);
-      text-transform: uppercase;
-    }
-
-    .perspective-price {
-      display: block;
-      margin-top: 14px;
-      font-size: 10px;
+      font-size: clamp(11px, 1.6vw, 15px);
       font-weight: 700;
       letter-spacing: 0.22em;
-      color: rgba(255,255,255,0.26);
+      color: rgba(255,255,255,0.6);
       text-transform: uppercase;
+      max-width: 520px;
+      line-height: 1.9;
+      margin-bottom: clamp(40px, 6vw, 60px);
+    }
+
+    .perspective-offer {
+      width: min(520px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
     }
 
     .payment-form {
-      justify-self: end;
-      width: min(360px, 100%);
+      justify-self: stretch;
+      width: min(560px, 100%);
+      display: grid;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .payment-field {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 6px;
+    }
+
+    .payment-label {
+      font-family: inherit;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
     }
 
     .payment-input,
@@ -780,11 +832,11 @@
     }
 
     .payment-card {
-      padding: 12px 14px;
+      padding: 11px 14px;
     }
 
     .payment-submit {
-      min-height: 52px;
+      min-height: 50px;
       padding: 0 22px;
       border-color: rgba(255,255,255,0.75);
       background: #fff;
@@ -814,6 +866,8 @@
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.34);
+      overflow-wrap: anywhere;
+      line-height: 1.5;
     }
 
     /* ===== WORK ===== */
@@ -1287,17 +1341,15 @@
       .projects-grid { grid-template-columns: 1fr; }
       .project-card:last-child:nth-child(odd) { max-width: 100%; }
     }
+    @media (max-width: 540px) {
+      .fork { grid-template-columns: 1fr; }
+      .fork-featured { width: 100%; }
+    }
 
     @media (max-width: 600px) {
       .header { flex-direction: column; align-items: flex-start; }
       .header-right { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .perspective-offer {
-        grid-template-columns: 1fr;
-      }
-      .payment-form {
-        justify-self: stretch;
-        width: 100%;
-      }
+      .payment-form { width: 100%; }
       /* Long landing byline. On phones the absolutely-positioned line
          pushed off-screen on both sides because translateX(-50%) plus
          the nowrap'd width exceeded the viewport. Allow it to wrap and
@@ -1456,17 +1508,16 @@
     body.light .writing-origin a { color: rgba(0,0,0,0.4); }
     body.light .writing-origin a:hover { color: rgba(0,0,0,0.7); }
     body.light .perspective-caption { color: rgba(0,0,0,0.92); }
-    body.light .perspective-offer {
-      border-top-color: rgba(0,0,0,0.08);
-      border-bottom-color: rgba(0,0,0,0.08);
+    body.light .perspective-enter {
+      border-color: rgba(0,0,0,0.2);
+      color: rgba(0,0,0,0.45);
     }
-    body.light .perspective-kicker,
-    body.light .perspective-price {
-      color: rgba(0,0,0,0.32);
-    }
-    body.light .perspective-title {
+    body.light .perspective-enter:hover {
+      border-color: rgba(0,0,0,0.55);
       color: rgba(0,0,0,0.82);
     }
+    body.light .perspective-title { color: rgba(0,0,0,0.65); }
+    body.light .payment-label { color: rgba(0,0,0,0.32); }
     body.light .payment-input,
     body.light .payment-card {
       border-color: rgba(0,0,0,0.18);
@@ -1563,15 +1614,15 @@
     <section class="landing-intro">
       <nav class="fork">
         <a href="#transmissions" class="fork-block">
-          <span class="fork-label">A SERIES OF TRANSMISSIONS</span>
-          <span class="fork-count">11 ENTRIES</span>
+          <span class="fork-label" data-fit data-fit-max="34">TRANSMISSIONS</span>
+          <span class="fork-count">10 ENTRIES</span>
         </a>
         <a href="#work" class="fork-block">
-          <span class="fork-label">WORK</span>
+          <span class="fork-label" data-fit data-fit-max="34">WORK</span>
           <span class="fork-count">9 PROJECTS</span>
         </a>
         <a href="#perspective" class="fork-block fork-featured">
-          <span class="fork-label">MY PERSPECTIVE</span>
+          <span class="fork-label" data-fit data-fit-max="34">PHYSICAL PERSPECTIVE</span>
         </a>
       </nav>
       <div class="landing-bottom">
@@ -1625,7 +1676,7 @@
       <section class="writing-section">
         <div class="section-label">
           <span>A SERIES OF TRANSMISSIONS</span>
-          <span class="count">11</span>
+          <span class="count">10</span>
         </div>
         <p class="section-subtitle">on consciousness, identity, and perception</p>
         <div class="writing-list">
@@ -1664,10 +1715,6 @@
           <a href="transmissions/0009.html" class="writing-entry">
             <span class="writing-title">TRUTH LOOPS</span>
             <span class="writing-date">2025.04.17</span>
-          </a>
-          <a href="transmissions/0010.html" class="writing-entry">
-            <span class="writing-title">LOVE IS IN PRESENCE</span>
-            <span class="writing-date">2025.04.19</span>
           </a>
           <a href="transmissions/0011.html" class="writing-entry">
             <span class="writing-title">THE PROOF IS YOU</span>
@@ -1716,28 +1763,32 @@
       </div>
 
       <section class="perspective-section">
-        <div class="section-label">
-          <span>MY PERSPECTIVE</span>
-          <span class="count">$10,000</span>
+        <div class="perspective-intro" id="perspective-intro">
+          <p class="perspective-caption">THIS IS HOW MUCH A PHYSICAL REPRESENTATION OF MY PERSPECTIVE COSTS</p>
+          <button class="perspective-enter" id="perspective-enter" type="button">ENTER</button>
         </div>
-        <p class="perspective-caption">this is how much my perspective costs</p>
-        <div class="perspective-offer">
-          <div>
-            <span class="perspective-kicker">SAMPLE BOOK</span>
-            <h2 class="perspective-title">A SERIES OF TRANSMISSIONS</h2>
-            <span class="perspective-price">10,000 USD</span>
+
+        <div class="perspective-checkout" id="perspective-checkout">
+          <h2 class="perspective-title">THIS IS AN UNFILTERED STREAM OF CONSCIOUSNESS BY SHADRACK ANNOR</h2>
+          <div class="perspective-offer">
+            <form
+              class="payment-form"
+              id="payment-form"
+              data-square-application-id="sq0idp-TlquK5NRSG9BbKAlj0VqzQ"
+              data-square-location-id="LT80EPP7A675W"
+            >
+              <div class="payment-field">
+                <label class="payment-label" for="buyer-email">EMAIL</label>
+                <input class="payment-input" id="buyer-email" name="email" type="email" placeholder="YOUR EMAIL ADDRESS" autocomplete="email" required>
+              </div>
+              <div class="payment-field">
+                <label class="payment-label">CARD DETAILS</label>
+                <div class="payment-card" id="card-container"></div>
+              </div>
+              <button class="payment-submit" id="payment-submit" type="submit" disabled>PRE-ORDER $10,000</button>
+              <p class="payment-status" id="payment-status" aria-live="polite">LOADING PAYMENT FORM</p>
+            </form>
           </div>
-          <form
-            class="payment-form"
-            id="payment-form"
-            data-square-application-id="sq0idp-TlquK5NRSG9BbKAlj0VqzQ"
-            data-square-location-id="LT80EPP7A675W"
-          >
-            <input class="payment-input" id="buyer-email" name="email" type="email" placeholder="EMAIL" autocomplete="email" required>
-            <div class="payment-card" id="card-container"></div>
-            <button class="payment-submit" id="payment-submit" type="submit" disabled>PAY 10,000</button>
-            <p class="payment-status" id="payment-status" aria-live="polite">LOADING PAYMENT FORM</p>
-          </form>
         </div>
       </section>
 
@@ -1761,7 +1812,7 @@
         <div class="header-right">
           <nav class="header-nav">
             <a href="#transmissions">TRANSMISSIONS</a>
-            <a href="#perspective">PERSPECTIVE</a>
+              <a href="#perspective">PERSPECTIVE</a>
             <a href="#work" class="active">WORK</a>
           </nav>
           <div>
@@ -1966,6 +2017,12 @@
         document.body.className = resolveBodyClass(view);
         document.title = title;
         window.scrollTo(0, 0);
+        if (view === 'view-perspective') {
+          var intro = document.getElementById('perspective-intro');
+          var checkout = document.getElementById('perspective-checkout');
+          if (intro) { intro.classList.remove('exiting'); intro.style.display = ''; }
+          if (checkout) { checkout.style.display = 'none'; checkout.classList.remove('visible'); }
+        }
       }
 
       function navigate(hash, opts) {
@@ -2049,6 +2106,7 @@
       var status = document.getElementById('payment-status');
       var cardContainer = document.getElementById('card-container');
       var card;
+      var squareStarted = false;
 
       function setStatus(text, tone) {
         status.textContent = text;
@@ -2068,23 +2126,40 @@
           form.getAttribute('data-square-location-id')
         );
 
+        var isLight = document.body.classList.contains('light');
         card = await payments.card({
           style: {
             input: {
-              color: document.body.classList.contains('light') ? '#050505' : '#ffffff',
+              // Square defaults the field background to white; without this the
+              // white card text/placeholder is invisible on the dark surface.
+              backgroundColor: 'transparent',
+              color: isLight ? '#050505' : '#ffffff',
               fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
               fontSize: '13px',
               fontWeight: '600'
             },
             'input::placeholder': {
-              color: document.body.classList.contains('light') ? 'rgba(0,0,0,0.32)' : 'rgba(255,255,255,0.24)'
+              color: isLight ? 'rgba(0,0,0,0.4)' : 'rgba(255,255,255,0.45)'
+            },
+            '.input-container': {
+              borderColor: 'transparent',
+              borderRadius: '0'
+            },
+            '.input-container.is-focus': {
+              borderColor: 'transparent'
+            },
+            '.message-text': {
+              color: isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)'
+            },
+            '.message-icon': {
+              color: isLight ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)'
             }
           }
         });
         await card.attach('#card-container');
         cardContainer.classList.add('is-ready');
         submit.disabled = false;
-        setStatus('READY');
+        setStatus('');
       }
 
       form.addEventListener('submit', async function(e) {
@@ -2110,7 +2185,7 @@
             throw new Error((tokenResult.errors || []).map(function(err) { return err.message; }).join(' ') || 'CARD TOKENIZATION FAILED');
           }
 
-          setStatus('CHARGING');
+          setStatus('PLACING PRE-ORDER');
           var res = await fetch('/api/create-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -2124,18 +2199,38 @@
             throw new Error(data.error || 'PAYMENT FAILED');
           }
 
-          setStatus('PAID', 'success');
-          submit.textContent = 'PAID';
+          setStatus('PRE-ORDER RECEIVED', 'success');
+          submit.textContent = 'PRE-ORDERED';
         } catch (err) {
           setStatus(err.message || 'PAYMENT FAILED', 'error');
-          submit.textContent = 'PAY 10,000';
+          submit.textContent = 'PRE-ORDER $10,000';
           submit.disabled = false;
         }
       });
 
-      initSquarePayment().catch(function(err) {
-        setStatus(err.message || 'PAYMENT FORM FAILED', 'error');
-      });
+      var enterBtn = document.getElementById('perspective-enter');
+      if (enterBtn) {
+        enterBtn.addEventListener('click', function() {
+          var intro = document.getElementById('perspective-intro');
+          var checkout = document.getElementById('perspective-checkout');
+          intro.classList.add('exiting');
+          setTimeout(function() {
+            intro.style.display = 'none';
+            checkout.style.display = 'flex';
+            requestAnimationFrame(function() {
+              requestAnimationFrame(function() {
+                checkout.classList.add('visible');
+              });
+            });
+            if (!squareStarted) {
+              squareStarted = true;
+              initSquarePayment().catch(function(err) {
+                setStatus(err.message || 'PAYMENT FORM FAILED', 'error');
+              });
+            }
+          }, 500);
+        });
+      }
     })();
   </script>
 
@@ -2402,5 +2497,6 @@
       requestAnimationFrame(frame);
     })();
   </script>
+  <script type="module" src="/pretext-fit.js"></script>
 </body>
 </html>

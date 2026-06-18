@@ -24,6 +24,19 @@ assert(perspectiveView.includes('id="card-container"'), 'perspective view includ
 assert(perspectiveView.includes('id="payment-form"'), 'perspective view includes the on-site payment form');
 assert(perspectiveView.includes('id="payment-status"'), 'perspective view includes payment status text');
 assert(!perspectiveView.includes('square.link'), 'perspective view no longer redirects to Square checkout');
+assert(!html.includes('SAMPLE BOOK'), 'site does not describe the offer as a sample book');
+assert(
+  perspectiveView.includes('PRE-ORDER'),
+  'perspective page identifies the offer as a preorder'
+);
+assert(
+  perspectiveView.includes('THIS IS AN UNFILTERED STREAM OF CONSCIOUSNESS BY SHADRACK ANNOR'),
+  'perspective page names the preorder title'
+);
+assert(
+  perspectiveView.includes('PRE-ORDER $10,000'),
+  'payment action is framed as a preorder'
+);
 assert(html.includes("fetch('/api/create-payment'"), 'client sends token to the local payment endpoint');
 assert(html.includes('card.tokenize('), 'client tokenizes the card on site');
 

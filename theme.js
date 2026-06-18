@@ -2,19 +2,19 @@
 // persists across pages after the one-time light-default migration.
 (function () {
   var SVG_NS = 'http://www.w3.org/2000/svg';
-  var DEFAULT_THEME_VERSION = 'light-default-2026-05-28';
+  var DEFAULT_THEME_VERSION = 'dark-default-2026-06-17';
 
   function readTheme() {
     try {
       if (localStorage.getItem('theme-default-version') !== DEFAULT_THEME_VERSION) {
         localStorage.setItem('theme-default-version', DEFAULT_THEME_VERSION);
         localStorage.removeItem('theme');
-        return 'light';
+        return 'dark';
       }
       var v = localStorage.getItem('theme');
-      return v === 'dark' ? 'dark' : 'light';
+      return v === 'light' ? 'light' : 'dark';
     } catch (e) {
-      return 'light';
+      return 'dark';
     }
   }
 
