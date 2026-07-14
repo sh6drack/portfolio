@@ -1322,14 +1322,18 @@
       container-type: inline-size;
     }
     #view-work .shared-context-thumb img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
       width: 92%;
       height: auto;
       object-fit: contain;
       filter: drop-shadow(0 0 12px rgba(255,255,255,0.04));
+      transform: translate(-50%, -50%);
     }
     #view-work .shared-context:hover .shared-context-thumb img {
       filter: drop-shadow(0 0 18px rgba(255,255,255,0.18));
-      transform: scale(1.015);
+      transform: translate(-50%, -50%) scale(1.015);
     }
 
     /* Project info: title brightens on hover. Spacing tightens slightly

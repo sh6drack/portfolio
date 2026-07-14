@@ -11,6 +11,7 @@ const desktopEnd = html.indexOf('@media (max-width: 768px) {', desktopStart);
 const desktopCss = html.slice(desktopStart, desktopEnd);
 const articleDesktopStart = articleCss.indexOf('@media (min-width: 1024px) {');
 const articleDesktopCss = articleCss.slice(articleDesktopStart);
+const sharedContextImageRule = html.match(/#view-work \.shared-context-thumb img \{([^}]*)\}/)?.[1] || '';
 
 assert(
   desktopCss.includes('.container-narrow,\n      .container-wide {\n        max-width: 1280px;'),
@@ -32,6 +33,10 @@ assert(
 assert(
   desktopCss.includes('.projects-grid {\n        grid-template-columns: repeat(3, minmax(0, 1fr));'),
   'desktop Work uses three columns'
+);
+assert(
+  /position:\s*absolute/.test(sharedContextImageRule),
+  'Shared Context image does not stretch its 16:10 thumbnail out of alignment'
 );
 assert(
   desktopCss.includes('.perspective-offer {\n        width: min(760px, 100%);'),
