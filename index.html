@@ -1321,18 +1321,13 @@
       justify-content: center;
       container-type: inline-size;
     }
-    #view-work .shared-context-wordmark {
-      color: rgba(255,255,255,0.9);
-      font-size: clamp(26px, 13cqi, 64px);
-      font-weight: 600;
-      letter-spacing: -0.055em;
-      line-height: 1;
-      text-transform: lowercase;
-      white-space: nowrap;
-      transition: color 0.4s ease, filter 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    #view-work .shared-context-thumb img {
+      width: 92%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.04));
     }
-    #view-work .shared-context:hover .shared-context-wordmark {
-      color: #fff;
+    #view-work .shared-context:hover .shared-context-thumb img {
       filter: drop-shadow(0 0 18px rgba(255,255,255,0.18));
       transform: scale(1.015);
     }
@@ -1662,10 +1657,9 @@
     body.light .project-info h3 { color: rgba(0,0,0,0.85); }
     body.light .project-info p { color: rgba(0,0,0,0.55); }
     body.light .card-arrow { color: rgba(0,0,0,0.3); }
-    body.light #view-work .shared-context-wordmark { color: rgba(0,0,0,0.85); }
-    body.light #view-work .shared-context:hover .shared-context-wordmark {
-      color: #050505;
-      filter: drop-shadow(0 0 14px rgba(0,0,0,0.1));
+    body.light #view-work .shared-context-thumb img { filter: invert(1); }
+    body.light #view-work .shared-context:hover .shared-context-thumb img {
+      filter: invert(1) drop-shadow(0 0 14px rgba(0,0,0,0.1));
     }
     /* Invert any white wordmark images so they read on light bg */
     body.light .polarity-wordmark,
@@ -1945,7 +1939,7 @@
 
           <a href="https://sharedcontextlab.com" target="_blank" rel="noopener" class="project-card transparent shared-context">
             <div class="project-thumbnail shared-context-thumb">
-              <span class="shared-context-wordmark">shared context</span>
+              <img src="shared-context-lab.png" alt="Shared Context Lab">
             </div>
             <div class="project-info">
               <span class="card-type">AI ENGINEERING</span>

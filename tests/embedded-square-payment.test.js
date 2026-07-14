@@ -5,6 +5,7 @@ const path = require('path');
 const root = path.resolve(__dirname, '..');
 const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const apiPath = path.join(root, 'functions', 'api', 'create-payment.js');
+const sharedContextImagePath = path.join(root, 'shared-context-lab.png');
 
 const perspectiveView = html.match(/<div id="view-perspective"[\s\S]*?<!-- ===== WORK ===== -->/)?.[0] || '';
 const workView = html.match(/<div id="view-work"[\s\S]*?<!-- ===== ROUTER ===== -->/)?.[0] || '';
@@ -72,6 +73,15 @@ assert.strictEqual(
 assert(
   workView.includes('href="https://sharedcontextlab.com"'),
   'Work links to Shared Context Lab'
+);
+assert(fs.existsSync(sharedContextImagePath), 'Shared Context Lab card image exists');
+assert(
+  workView.includes('<img src="shared-context-lab.png" alt="Shared Context Lab">'),
+  'Shared Context Lab card uses the supplied wordmark image'
+);
+assert(
+  !workView.includes('<span class="shared-context-wordmark">'),
+  'Shared Context Lab card no longer substitutes a text wordmark'
 );
 assert(
   workView.includes('AI Engineer Intern helping build Cue, a personal AI that learns your life, and helps you live it.'),
