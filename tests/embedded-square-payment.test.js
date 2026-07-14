@@ -34,10 +34,7 @@ assert(
   perspectiveView.includes('PRE-ORDER'),
   'perspective page identifies the offer as a preorder'
 );
-assert(
-  perspectiveView.includes('AN UNFILTERED PERSPECTIVE'),
-  'perspective page names the preorder title'
-);
+assert(!perspectiveView.includes('AN UNFILTERED PERSPECTIVE'), 'perspective checkout omits an extra title');
 assert(
   perspectiveView.includes('PRE-ORDER $500,000'),
   'payment action shows the $500,000 preorder price'

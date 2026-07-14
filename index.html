@@ -1326,6 +1326,28 @@
     }
 
     /* ===== RESPONSIVE ===== */
+    @media (min-width: 769px) {
+      .landing-intro {
+        padding: clamp(40px, 5vw, 88px);
+      }
+      .fork {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: min(1200px, 88vw);
+        gap: 2px;
+      }
+      .fork-block {
+        min-height: clamp(250px, 26vw, 340px);
+        padding: clamp(32px, 3.5vw, 52px);
+      }
+      .fork-featured {
+        grid-column: auto;
+        width: auto;
+        justify-self: stretch;
+        min-height: clamp(250px, 26vw, 340px);
+        padding: clamp(32px, 3.5vw, 52px);
+      }
+    }
+
     @media (max-width: 768px) {
       .projects-grid { grid-template-columns: 1fr; }
       .project-card:last-child:nth-child(odd) { max-width: 100%; }
@@ -1748,7 +1770,6 @@
         </div>
 
         <div class="perspective-checkout" id="perspective-checkout">
-          <h2 class="perspective-title">AN UNFILTERED PERSPECTIVE</h2>
           <div class="perspective-offer">
             <form
               class="payment-form"
