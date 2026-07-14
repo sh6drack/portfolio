@@ -30,6 +30,11 @@ assert(
   (html.match(/CONTEMPLATIVE STUDIES/g) || []).length === 4,
   'site identifies Shadrack’s degree as contemplative studies everywhere it appears'
 );
+assert(!html.includes('CS &amp; CONTEMPLATIVE STUDIES'), 'desktop footers do not abbreviate computer science');
+assert(
+  (html.match(/COMPUTER SCIENCE &amp; CONTEMPLATIVE STUDIES/g) || []).length === 3,
+  'every content footer spells out computer science'
+);
 assert(
   perspectiveView.includes('PRE-ORDER'),
   'perspective page identifies the offer as a preorder'

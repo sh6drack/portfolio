@@ -1326,7 +1326,11 @@
     }
 
     /* ===== RESPONSIVE ===== */
-    @media (min-width: 769px) {
+    @media (min-width: 1024px) {
+      .container-narrow,
+      .container-wide {
+        max-width: 1280px;
+      }
       .landing-intro {
         padding: clamp(40px, 5vw, 88px);
       }
@@ -1336,6 +1340,9 @@
         gap: 2px;
       }
       .fork-block {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
         min-height: clamp(250px, 26vw, 340px);
         padding: clamp(32px, 3.5vw, 52px);
       }
@@ -1345,6 +1352,36 @@
         justify-self: stretch;
         min-height: clamp(250px, 26vw, 340px);
         padding: clamp(32px, 3.5vw, 52px);
+      }
+      .landing-feature .feature-meta,
+      .feature-title,
+      .feature-byline,
+      .feature-frame {
+        max-width: 1200px;
+      }
+      .top-bar {
+        margin-bottom: 72px;
+      }
+      .perspective-intro {
+        min-height: calc(100vh - 220px);
+        min-height: calc(100dvh - 220px);
+      }
+      .perspective-checkout {
+        padding-top: 48px;
+      }
+      .perspective-offer {
+        width: min(760px, 100%);
+      }
+      .payment-form {
+        width: 100%;
+      }
+      .projects-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .project-card:last-child:nth-child(odd) {
+        grid-column: auto;
+        max-width: none;
+        justify-self: stretch;
       }
     }
 
@@ -1734,7 +1771,7 @@
       <footer class="footer">
         <p class="footer-tagline">POLARITY LAB</p>
         <div class="footer-bottom">
-          <span class="footer-copyright">BROWN UNIVERSITY '27 / CS &amp; CONTEMPLATIVE STUDIES</span>
+          <span class="footer-copyright">BROWN UNIVERSITY '27 / COMPUTER SCIENCE &amp; CONTEMPLATIVE STUDIES</span>
           <span class="footer-copyright">2026</span>
         </div>
       </footer>
@@ -1796,7 +1833,7 @@
       <footer class="footer">
         <p class="footer-tagline">POLARITY LAB</p>
         <div class="footer-bottom">
-          <span class="footer-copyright">BROWN UNIVERSITY '27 / CS &amp; CONTEMPLATIVE STUDIES</span>
+          <span class="footer-copyright">BROWN UNIVERSITY '27 / COMPUTER SCIENCE &amp; CONTEMPLATIVE STUDIES</span>
           <span class="footer-copyright">2026</span>
         </div>
       </footer>
@@ -1978,7 +2015,7 @@
       <footer class="footer">
         <p class="footer-tagline">POLARITY LAB</p>
         <div class="footer-bottom">
-          <span class="footer-copyright">BROWN UNIVERSITY '27 / CS &amp; CONTEMPLATIVE STUDIES</span>
+          <span class="footer-copyright">BROWN UNIVERSITY '27 / COMPUTER SCIENCE &amp; CONTEMPLATIVE STUDIES</span>
           <span class="footer-copyright">2026</span>
         </div>
       </footer>
