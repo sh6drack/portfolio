@@ -25,6 +25,11 @@ assert(perspectiveView.includes('id="payment-form"'), 'perspective view includes
 assert(perspectiveView.includes('id="payment-status"'), 'perspective view includes payment status text');
 assert(!perspectiveView.includes('square.link'), 'perspective view no longer redirects to Square checkout');
 assert(!html.includes('SAMPLE BOOK'), 'site does not describe the offer as a sample book');
+assert(!html.includes('RELIGIOUS STUDIES'), 'site no longer identifies Shadrack’s degree as religious studies');
+assert(
+  (html.match(/CONTEMPLATIVE STUDIES/g) || []).length === 4,
+  'site identifies Shadrack’s degree as contemplative studies everywhere it appears'
+);
 assert(
   perspectiveView.includes('PRE-ORDER'),
   'perspective page identifies the offer as a preorder'
