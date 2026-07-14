@@ -7,6 +7,7 @@ const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const apiPath = path.join(root, 'functions', 'api', 'create-payment.js');
 
 const perspectiveView = html.match(/<div id="view-perspective"[\s\S]*?<!-- ===== WORK ===== -->/)?.[0] || '';
+const workView = html.match(/<div id="view-work"[\s\S]*?<!-- ===== ROUTER ===== -->/)?.[0] || '';
 
 assert(
   perspectiveView.includes('https://web.squarecdn.com/v1/square.js'),
@@ -25,7 +26,11 @@ assert(perspectiveView.includes('id="payment-form"'), 'perspective view includes
 assert(perspectiveView.includes('id="payment-status"'), 'perspective view includes payment status text');
 assert(!perspectiveView.includes('square.link'), 'perspective view no longer redirects to Square checkout');
 assert(!html.includes('SAMPLE BOOK'), 'site does not describe the offer as a sample book');
-assert(!html.includes('RELIGIOUS STUDIES'), 'site no longer identifies Shadrack’s degree as religious studies');
+assert(!/religious studies/i.test(html), 'site no longer identifies Shadrack’s degree as religious studies');
+assert(
+  html.includes("Brown University Computer Science & Contemplative Studies '27."),
+  'SEO description spells out the updated degree'
+);
 assert(
   (html.match(/CONTEMPLATIVE STUDIES/g) || []).length === 4,
   'site identifies Shadrack’s degree as contemplative studies everywhere it appears'
@@ -57,5 +62,24 @@ assert(api.includes("currency: 'USD'"), 'API route charges USD');
 assert(api.includes('source_id'), 'API route forwards the payment source token');
 assert(api.includes('idempotency_key'), 'API route sends an idempotency key');
 assert(api.includes('onRequestPost'), 'Cloudflare function handles POST requests');
+
+assert(workView.includes('10 PROJECTS'), 'Work header counts the Shared Context Lab card');
+assert.strictEqual(
+  (html.match(/10 PROJECTS/g) || []).length,
+  2,
+  'landing and Work both count ten projects'
+);
+assert(
+  workView.includes('href="https://sharedcontextlab.com"'),
+  'Work links to Shared Context Lab'
+);
+assert(
+  workView.includes('AI Engineer Intern helping build Cue, a personal AI that learns your life, and helps you live it.'),
+  'Shared Context Lab card describes the Cue internship'
+);
+assert(
+  workView.indexOf('sharedcontextlab.com') < workView.indexOf('blueno.polarity-lab.com'),
+  'Shared Context Lab appears above Blueno'
+);
 
 console.log('embedded Square payment structure ok');

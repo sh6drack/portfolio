@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <title>Shadrack Annor</title>
-  <meta name="description" content="Shadrack Annor. A Series of Transmissions on perception, consciousness, and identity. Technical Director at Polarity Lab. Brown University CS & Religious Studies '27.">
+  <meta name="description" content="Shadrack Annor. A Series of Transmissions on perception, consciousness, and identity. Technical Director at Polarity Lab. Brown University Computer Science & Contemplative Studies '27.">
   <meta name="keywords" content="Shadrack Annor, A Series of Transmissions, Polarity Lab, research laboratory, AI, consciousness, perception, identity, Brown University, developer, researcher, WaxFeed, PolarityGPS, essays">
   <meta name="author" content="Shadrack Annor">
   <meta name="robots" content="index, follow">
@@ -1315,6 +1315,27 @@
       max-width: 280px;
       opacity: 0.88;
     }
+    #view-work .shared-context-thumb {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      container-type: inline-size;
+    }
+    #view-work .shared-context-wordmark {
+      color: rgba(255,255,255,0.9);
+      font-size: clamp(26px, 13cqi, 64px);
+      font-weight: 600;
+      letter-spacing: -0.055em;
+      line-height: 1;
+      text-transform: lowercase;
+      white-space: nowrap;
+      transition: color 0.4s ease, filter 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #view-work .shared-context:hover .shared-context-wordmark {
+      color: #fff;
+      filter: drop-shadow(0 0 18px rgba(255,255,255,0.18));
+      transform: scale(1.015);
+    }
 
     /* Project info: title brightens on hover. Spacing tightens slightly
        so attention rewards intent without a "click me" arrow shouting. */
@@ -1641,6 +1662,11 @@
     body.light .project-info h3 { color: rgba(0,0,0,0.85); }
     body.light .project-info p { color: rgba(0,0,0,0.55); }
     body.light .card-arrow { color: rgba(0,0,0,0.3); }
+    body.light #view-work .shared-context-wordmark { color: rgba(0,0,0,0.85); }
+    body.light #view-work .shared-context:hover .shared-context-wordmark {
+      color: #050505;
+      filter: drop-shadow(0 0 14px rgba(0,0,0,0.1));
+    }
     /* Invert any white wordmark images so they read on light bg */
     body.light .polarity-wordmark,
     body.light .avdp-mark,
@@ -1666,7 +1692,7 @@
         </a>
         <a href="#work" class="fork-block">
           <span class="fork-label" data-fit data-fit-max="34">WORK</span>
-          <span class="fork-count">9 PROJECTS</span>
+          <span class="fork-count">10 PROJECTS</span>
         </a>
         <a href="#perspective" class="fork-block fork-featured">
           <span class="fork-label" data-fit data-fit-max="34">PHYSICAL PERSPECTIVE</span>
@@ -1876,7 +1902,7 @@
       <section class="projects-section">
         <div class="section-label">
           <span>SELECTED WORK</span>
-          <span class="count">9 PROJECTS</span>
+          <span class="count">10 PROJECTS</span>
         </div>
         <div class="projects-grid">
           <a href="https://cosmos.polarity-lab.com" target="_blank" class="project-card cosmos transparent">
@@ -1913,6 +1939,18 @@
               <span class="card-type">RESEARCH LABORATORY</span>
               <h3>POLARITY</h3>
               <p>Technical Director. An institute for the human condition. Film therapeutics, cognitive profiling, AI honesty, community discovery.</p>
+              <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
+            </div>
+          </a>
+
+          <a href="https://sharedcontextlab.com" target="_blank" rel="noopener" class="project-card transparent shared-context">
+            <div class="project-thumbnail shared-context-thumb">
+              <span class="shared-context-wordmark">shared context</span>
+            </div>
+            <div class="project-info">
+              <span class="card-type">AI ENGINEERING</span>
+              <h3>SHARED CONTEXT LAB</h3>
+              <p>AI Engineer Intern helping build Cue, a personal AI that learns your life, and helps you live it.</p>
               <span class="card-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></span>
             </div>
           </a>
