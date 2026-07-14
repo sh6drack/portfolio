@@ -30,21 +30,22 @@ assert(
   'perspective page identifies the offer as a preorder'
 );
 assert(
-  perspectiveView.includes('THIS IS AN UNFILTERED STREAM OF CONSCIOUSNESS BY SHADRACK ANNOR'),
+  perspectiveView.includes('MY PERSPECTIVE'),
   'perspective page names the preorder title'
 );
 assert(
-  perspectiveView.includes('PRE-ORDER $10,000'),
-  'payment action is framed as a preorder'
+  perspectiveView.includes('PRE-ORDER $500,000'),
+  'payment action shows the $500,000 preorder price'
 );
 assert(html.includes("fetch('/api/create-payment'"), 'client sends token to the local payment endpoint');
 assert(html.includes('card.tokenize('), 'client tokenizes the card on site');
+assert(html.includes("amount: '500000.00'"), 'client tokenization uses the $500,000 amount');
 
 assert(fs.existsSync(apiPath), 'Cloudflare Pages create-payment function exists');
 const api = fs.readFileSync(apiPath, 'utf8');
 assert(api.includes('env.SQUARE_ACCESS_TOKEN'), 'Cloudflare function reads the Square token from env');
 assert(api.includes('https://connect.squareup.com/v2/payments'), 'API route calls Square CreatePayment');
-assert(api.includes('amount: 1000000'), 'API route charges 1000000 cents');
+assert(api.includes('amount: 50000000'), 'API route charges 50000000 cents');
 assert(api.includes("currency: 'USD'"), 'API route charges USD');
 assert(api.includes('source_id'), 'API route forwards the payment source token');
 assert(api.includes('idempotency_key'), 'API route sends an idempotency key');

@@ -1748,7 +1748,7 @@
         </div>
 
         <div class="perspective-checkout" id="perspective-checkout">
-          <h2 class="perspective-title">THIS IS AN UNFILTERED STREAM OF CONSCIOUSNESS</h2>
+          <h2 class="perspective-title">MY PERSPECTIVE</h2>
           <div class="perspective-offer">
             <form
               class="payment-form"
@@ -1764,7 +1764,7 @@
                 <label class="payment-label">CARD DETAILS</label>
                 <div class="payment-card" id="card-container"></div>
               </div>
-              <button class="payment-submit" id="payment-submit" type="submit" disabled>PRE-ORDER $10,000</button>
+              <button class="payment-submit" id="payment-submit" type="submit" disabled>PRE-ORDER $500,000</button>
               <p class="payment-status" id="payment-status" aria-live="polite">LOADING PAYMENT FORM</p>
             </form>
           </div>
@@ -2148,7 +2148,7 @@
         try {
           var email = form.email.value.trim();
           var tokenResult = await card.tokenize({
-            amount: '10000.00',
+            amount: '500000.00',
             billingContact: { email: email },
             currencyCode: 'USD',
             intent: 'CHARGE',
@@ -2178,7 +2178,7 @@
           submit.textContent = 'PRE-ORDERED';
         } catch (err) {
           setStatus(err.message || 'PAYMENT FAILED', 'error');
-          submit.textContent = 'PRE-ORDER $10,000';
+          submit.textContent = 'PRE-ORDER $500,000';
           submit.disabled = false;
         }
       });

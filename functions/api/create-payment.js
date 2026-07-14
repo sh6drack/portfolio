@@ -1,7 +1,7 @@
 const SQUARE_VERSION = '2026-05-20';
 const LOCATION_ID = 'LT80EPP7A675W';
 const AMOUNT_MONEY = {
-  amount: 1000000,
+  amount: 50000000,
   currency: 'USD'
 };
 
