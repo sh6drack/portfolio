@@ -30,7 +30,7 @@ assert(
   'perspective page identifies the offer as a preorder'
 );
 assert(
-  perspectiveView.includes('MY PERSPECTIVE'),
+  perspectiveView.includes('AN UNFILTERED PERSPECTIVE'),
   'perspective page names the preorder title'
 );
 assert(
